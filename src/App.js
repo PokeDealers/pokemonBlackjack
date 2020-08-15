@@ -2,22 +2,30 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom' 
 import axios from 'axios'
 
+import Header from './Header'
+
 import './App.css';
 
 class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            pokemon: [],
+
+        }
+    }
 
     componentDidMount() {
-    axios({
-        url: '',
-        responseType: 'json',
-        method: 'GET',
-        params: {
-        // params here
-        }
-    })
-        .then( (res) => {
-            
-        })
+        // axios({
+        //     url: 'https://pokeapi.co/api/v2/pokemon',
+        //     responseType: 'json',
+        //     method: 'GET',
+        //     params: {
+        //         q: id
+        //     }
+        // }).then( (res) => {
+        //     console.log(res);
+        // })
     }
 
 
