@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Header extends Component {
+export class Winner extends Component {
     render() {
         return (
-            <header>
+            <div>
                 
-            </header>
+            </div>
         )
     }
 }
 
-export default Header
+export default Winner
