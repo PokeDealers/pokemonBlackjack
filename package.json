@@ -1,5 +1,5 @@
 {
-  "homepage" "https://username.github.io/PokeDealers/pokemonBlackjack"
+  "homepage": "https://username.github.io/PokeDealers/pokemonBlackjack",
   "name": "pokemon-blackjack",
   "version": "0.1.0",
   "private": true,
