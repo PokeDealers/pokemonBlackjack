@@ -69,6 +69,11 @@ img {
 .pokemonOneCardContainer,
 .pokemonTwoCardContainer {
     border: dotted blue 1px;
+    display: flex;
+}
+
+.card {
+    width: 100px;
 }
 
 
