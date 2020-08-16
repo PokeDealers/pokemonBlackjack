@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
         return (
-            <div>
+            <div className="wrapper">
                 <header>
                     <div className="headerTextContainer">
                     <h1 className="headerText">PokeDealers presents Pokemon BlackJack</h1>

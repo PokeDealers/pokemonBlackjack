@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom' 
+import { BrowserRouter as Router, Route } from 'react-router-dom' 
 import axios from 'axios'
 import BattleScreen from './BattleScreen';
 import Home from './Home';
@@ -80,23 +80,16 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            pokemonOne: [],
-            pokemonTwo: [], // store all the pokemon into initial state
-            playerOneCards: [],
-            playerTwoCards: [],
+            pokemonOneName: "",
+            pokemonTwoName: "",
+            pokemonOneImg: [],
+            pokemonTwoImg: [], 
+            pokemonOneCards: [],
+            pokemonTwoCards: [],
             deckOfCards: []
         }
     }
 
-    // pokemonCall = () => {
-    //     axios({
-    //         url: 'https://pokeapi.co/api/v2/pokemon',
-    //         responseType: 'json',
-    //         method: 'GET',
-    //     }).then( (res) => {
-    //         console.log(res);
-    //     })
-    // }
 
     getPokemonOne = () => {
         const numGenerator = Math.floor(Math.random() * 200);
@@ -107,8 +100,10 @@ class App extends Component {
                 method: 'GET',
         })
         .then( (res) => {
+            console.log('api results', res)
             this.setState({
-                pokemonOne: res.data,
+                pokemonOneName: res.data.name,
+                pokemonOneImg: res.data.sprites,
             })
         })
     }
@@ -123,7 +118,8 @@ class App extends Component {
         })
         .then( (res) => {
             this.setState({
-                pokemonTwo: res.data,
+                pokemonTwoName: res.data.name,
+                pokemonTwoImg: res.data.sprites,
             })
         })
     }
@@ -153,14 +149,16 @@ class App extends Component {
             <Router basename={process.env.PUBLIC_URL}>
                 <div className="App">
                     <Route exact path="/" component= { Home } />
-                    <Route path="/BattleScreen" render={ () => <BattleScreen passPokemonOne={this.state.pokemonOne} passPokemonTwo={this.state.pokemonTwo}/> } />
+
+                    <Route 
+                        path="/BattleScreen" 
+                        render={ () => 
+                            <BattleScreen 
+                                passPokemonInfo={ this.state } 
+                            /> } />
+
                     <Route path="/Winner" component={ Winner } />
                     
-
-
-                    {/* <nav>
-                        <Link to="/BattleScreen">BattleScreen</Link>
-                    </nav> */}
 
                 </div>
             </Router>

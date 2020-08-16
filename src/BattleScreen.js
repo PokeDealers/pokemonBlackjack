@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
 //BattleScreen.js
@@ -31,33 +31,42 @@ import './styles.css';
 const BattleScreen = (props) => {
         console.log("props", props);
         return (
-            <div>
-                <div className="pokemonContainer">
-                    <h1>THIS IS THE BATTLESCREEN!</h1>
+            <div className="wrapper battleScreenStyles">
+                <h1>THIS IS THE BATTLESCREEN!</h1>
 
-                     <div className="pokemonOne">
-                        <p>{props.passPokemonOne.name}</p>
-                        <img src={props.passPokemonOne.sprites} />
-                     </div>
+                <div className="gameContainer">
 
-                     <div className="pokemonTwo">
-                        <p>{props.passPokemonTwo.name}</p>
-                        <img src={props.passPokemonTwo.sprites} />
-                     </div>
-                    
-                    {/*  <
-                    <h2>It's {props.name}</h2>
-                     <img src={props.passPokemonOne.sprites.front_default} alt={ props.name }/>
-                    <img src={props.sprites.front_default} alt={ props.name }/> */}
+                    <div className="pokemonOneContainer">
+                            <div className="pokemonImgContainer">
+                                <img src={props.passPokemonInfo.pokemonOneImg.front_default} alt=""/>
+                                <p>{props.passPokemonInfo.pokemonOneName}</p>
+                            </div>
+                            <div className="pokemonOneCardContainer">
+                                {/* pokemon one's cards to go here */}
+                                <p>placeholder for cards</p>
+                            </div>
+                    </div>
+
+                    <div className="pokemonTwoContainer">
+                            <div className="pokemonImgContainer">
+                                <img src={props.passPokemonInfo.pokemonTwoImg.front_default} alt=""/>
+                                <p>{props.passPokemonInfo.pokemonTwoName}</p>
+                            </div>
+                            <div className="pokemonTwoCardContainer">
+                                {/* pokemon two's cards to go here */}
+                                <p>placeholder for cards</p>
+                            </div>
+                    </div>
                 </div>
-                <Link to="/Winner"><button className="buttonStyle">Show me the winner!</button></Link>
+
+                <button className="drawCard">Draw Card</button>
+                
+                <button className="stand">Stand</button>
+                    
+                <Link to="/Winner"><button className="buttonStyle">Winner is...</button></Link>
             </div>
         )
 }
 
 
-
-
-
-
-export default BattleScreen;
+export default BattleScreen; 
