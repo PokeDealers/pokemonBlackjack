@@ -98,13 +98,12 @@ class App extends Component {
     //     })
     // }
 
-    componentDidMount() {
+    componentDidMount = () => {
 
+        const numGenerator = Math.floor(Math.random() * 964);
 
-
-        const pokemonName = res.data.chain.species.name;
         axios({
-                url: `https://pokeapi.co/api/v2/evolution-chain/${pokemonName}/`,
+                url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
                 responseType: 'json',
                 method: 'GET',
         })
@@ -113,8 +112,9 @@ class App extends Component {
         })
 
         
+        
 
-        const randomNumber = Math.ceil(Math.random() * 200);
+       // const randomNumber = Math.ceil(Math.random() * 200);
 
         // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
         // axios({

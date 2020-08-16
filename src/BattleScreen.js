@@ -27,11 +27,12 @@ import { Route, Link } from 'react-router-dom';
     //Display two Pokemon that will be blackjacking
     //When there is a winner (MVP: 1 win) the app will take you to a new screen (Winner.js)
 
-const BattleScreen = () => {
+const BattleScreen = (props) => {
         return (
             <div>
                 <div>
                     <p>THIS IS THE BATTLESCREEN!</p>
+                    {/* <img src={props.sprites.front_default} alt={ props.name }/> */}
                 </div>
                 <Link to="/Winner"><button className="buttonStyle">Show me the winner!</button></Link>
             </div>
