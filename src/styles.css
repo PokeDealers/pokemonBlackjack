@@ -4,8 +4,11 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
+img { max-width: 100%; height: auto; display: block;} body, h1, h2, h3, h4, h5, h6, p, ol, ul { margin: 0; padding: 0; font-weight: normal;} ol, ul {list-style: none;} a {text-decoration: none;}
+
 
 .wrapper {
+    width: 85%;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -17,7 +20,6 @@ h1 {
     margin: 0 auto;
     height: 50px;
 }
-
 
 p, button{
     font-size: calc(1.2rem + 1vw);
@@ -38,3 +40,37 @@ button:hover {
     background-color: black;
     color: white;
 }
+
+/* BattleScreen Styles */
+
+img {
+    width: 200px;
+}
+
+.gameContainer {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100vh - 50px);
+}
+
+.pokemonOneContainer {
+    border: red dashed 1px;
+    align-self: flex-end;
+    display: flex;
+}
+
+.pokemonTwoContainer {
+    border: red dashed 1px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.pokemonOneCardContainer,
+.pokemonTwoCardContainer {
+    border: dotted blue 1px;
+}
+
+
+
+
