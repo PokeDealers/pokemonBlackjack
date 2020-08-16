@@ -4,11 +4,10 @@ import axios from 'axios'
 import BattleScreen from './BattleScreen';
 import Home from './Home';
 import Winner from './Winner';
-
 import './styles.css';
 
 
-//When user lands on page, they will be shown a “Pokemon blackjack instructions” screen that shows instructions of blackjack which is App.js
+//When user lands on page, they will be shown a “Pokemon blackjack instructions” screen that shows instructions of blackjack which is Home.js
 //When user clicks “ok” that will link to the game screen
 //On application start, store all the Pokemon into a Pokemon array
 //	- create an axios call to the Pokemon api 

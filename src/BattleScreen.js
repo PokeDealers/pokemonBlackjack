@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import './styles.css';
 
 //BattleScreen.js
 // Low - i icon appears to remind player of the rules
@@ -31,8 +32,11 @@ const BattleScreen = (props) => {
         return (
             <div>
                 <div>
-                    <p>THIS IS THE BATTLESCREEN!</p>
-                    {/* <img src={props.sprites.front_default} alt={ props.name }/> */}
+                    <h1>THIS IS THE BATTLESCREEN!</h1>
+
+                    
+                    {/* <h2>It's {props.name}</h2>
+                    <img src={props.sprites.front_default} alt={ props.name }/> */}
                 </div>
                 <Link to="/Winner"><button className="buttonStyle">Show me the winner!</button></Link>
             </div>
