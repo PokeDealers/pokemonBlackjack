@@ -30,6 +30,7 @@ import './styles.css';
 
 const BattleScreen = (props) => {
         console.log("props", props);
+
         return (
             <div className="wrapper battleScreenStyles">
                 <h1>THIS IS THE BATTLESCREEN!</h1>
@@ -42,8 +43,16 @@ const BattleScreen = (props) => {
                                 <p>{props.passPokemonInfo.pokemonOneName}</p>
                             </div>
                             <div className="pokemonOneCardContainer">
-                                {/* pokemon one's cards to go here */}
-                                <p>placeholder for cards</p>
+                                {
+                                    props.passPokemonInfo.pokemonOneCards.map( (card) => {
+                                        return (
+                                            <div key={card.code}>
+                                                <img src={card.image} alt="" className="card"/>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                
                             </div>
                     </div>
 
@@ -53,8 +62,16 @@ const BattleScreen = (props) => {
                                 <p>{props.passPokemonInfo.pokemonTwoName}</p>
                             </div>
                             <div className="pokemonTwoCardContainer">
-                                {/* pokemon two's cards to go here */}
-                                <p>placeholder for cards</p>
+                                {
+                                props.passPokemonInfo.pokemonTwoCards.map( (card) => {
+                                    return (
+                                        <div key={card.code}>
+                                            <img src={card.image} alt="" className="card"/>
+                                        </div>
+                                    )
+                                })
+                                }
+                                
                             </div>
                     </div>
                 </div>

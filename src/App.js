@@ -86,7 +86,8 @@ class App extends Component {
             pokemonTwoImg: [], 
             pokemonOneCards: [],
             pokemonTwoCards: [],
-            deckOfCards: []
+            deckOfCards: [],
+            deckId: ""
         }
     }
 
@@ -124,16 +125,74 @@ class App extends Component {
         })
     }
 
+    // Function to get a new deck of cards (with deck_id)
+    getDeckOfCards = () => {
+        axios({
+            url: `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`,
+            responseType: 'json',
+            method: 'GET',
+        })
+        .then ((res) => {
+            console.log('deck of cards API', res);
+            // storing the deck_id in a variable since we need to re-use it
+            const deckId = res.data.deck_id;
+            // also added "deckId" to state...maybe this will be useful somewhere below?
+            this.setState({
+                deckId: res.data.deck_id
+            })
+
+            // Another axios call, this time using the draw 2 cards endpoint (for pokemonOneCards)
+            axios({
+                url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
+                responseType: 'json',
+                method: 'GET',
+            })
+            .then ((response) => {
+                console.log("draw 2 cards API", response.data.cards);
+                // Setting the cards into state for pokemonOneCards
+                this.setState({
+                    pokemonOneCards: response.data.cards
+                })
+            })
+
+            // Same axios call as above, but to get pokemonTwoCards
+            axios({
+                url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
+                responseType: 'json',
+                method: 'GET',
+            })
+            .then ((response) => {
+                console.log("draw 2 cards API", response.data.cards);
+                this.setState({
+                    // Setting the cards into state for pokemonTwoCards
+                    pokemonTwoCards: response.data.cards
+                })
+            })
+        })
+    }
+
+    // started trying to work out the logic of clicking the "Draw Card" button, and having the API call to the same deck_id again, to draw 1 more card, but got stumped here lol
+    // drawCardButton = () => {
+    //     axios({
+    //         url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
+    //         responseType: 'json',
+    //         method: 'GET',
+    //     })
+    //     .then ((response) => {
+    //         console.log("drawing one card at a time", response.data.cards);
+    //     })
+    // }
+
     componentDidMount = () => {
         this.getPokemonOne();
         this.getPokemonTwo();
+        this.getDeckOfCards();
     }
 
         
         
-
+        // Code for trying to get pokemon that evolves - to revisit later!
        // const randomNumber = Math.ceil(Math.random() * 200);
-
         // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
         // axios({
         //     url: `https://pokeapi.co/api/v2/evolution-chain/${randomNumber}/`,
