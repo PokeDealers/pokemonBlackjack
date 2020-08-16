@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom' 
 import axios from 'axios'
 import BattleScreen from './BattleScreen';
+import Home from './Home';
 import Winner from './Winner';
 
-import './App.css';
+import './styles.css';
 
 
 //When user lands on page, they will be shown a “Pokemon blackjack instructions” screen that shows instructions of blackjack which is App.js
@@ -80,30 +81,66 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            pokemon: [],
-
+            pokemon: [], // store all the pokemon into initial state
+            playerOneCards: [],
+            playerTwoCards: [],
+            deckOfCards: []
         }
     }
 
+    // pokemonCall = () => {
+    //     axios({
+    //         url: 'https://pokeapi.co/api/v2/pokemon',
+    //         responseType: 'json',
+    //         method: 'GET',
+    //     }).then( (res) => {
+    //         console.log(res);
+    //     })
+    // }
+
     componentDidMount() {
+
+
+
+        const pokemonName = res.data.chain.species.name;
+        axios({
+                url: `https://pokeapi.co/api/v2/evolution-chain/${pokemonName}/`,
+                responseType: 'json',
+                method: 'GET',
+        })
+        .then( (res) => {
+            console.log(res);
+        })
+
+        
+
+        const randomNumber = Math.ceil(Math.random() * 200);
+
+        // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
         // axios({
-        //     url: 'https://pokeapi.co/api/v2/pokemon',
+        //     url: `https://pokeapi.co/api/v2/evolution-chain/${randomNumber}/`,
         //     responseType: 'json',
         //     method: 'GET',
-        //     params: {
-        //         q: id
-        //     }
         // }).then( (res) => {
-        //     console.log(res);
+        //     console.log(res.data.chain.evolves_to);
         // })
     }
 
 
     render() {
         return (
-            <div className="App">
-            <h1>Pokemon blackjack</h1>
-            </div>
+            <Router>
+                <div className="App">
+                    <Route exact path="/" component= { Home } />
+                    <Route path="/BattleScreen" component={ BattleScreen } />
+                    <Route path="/Winner" component={ Winner } />
+
+                    {/* <nav>
+                        <Link to="/BattleScreen">BattleScreen</Link>
+                    </nav> */}
+
+                </div>
+            </Router>
         )
 
     }

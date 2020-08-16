@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom';
 
-export class Winner extends Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
+const Winner = () => {
+    return (
+        <div>
+            <p>THIS IS THE WINNER SCREEN!</p>
+            <Link to="/"><button className="buttonStyle">GO HOME</button></Link>
+        </div>
+    )
 }
 
-export default Winner
+export default Winner;
