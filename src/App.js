@@ -80,7 +80,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            pokemon: [], // store all the pokemon into initial state
+            pokemonOne: [],
+            pokemonTwo: [], // store all the pokemon into initial state
             playerOneCards: [],
             playerTwoCards: [],
             deckOfCards: []
@@ -97,9 +98,8 @@ class App extends Component {
     //     })
     // }
 
-    componentDidMount = () => {
-
-        const numGenerator = Math.floor(Math.random() * 964);
+    getPokemonOne = () => {
+        const numGenerator = Math.floor(Math.random() * 200);
 
         axios({
                 url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
@@ -107,8 +107,31 @@ class App extends Component {
                 method: 'GET',
         })
         .then( (res) => {
-            console.log(res);
+            this.setState({
+                pokemonOne: res.data,
+            })
         })
+    }
+
+    getPokemonTwo = () => {
+        const numGenerator = Math.floor(Math.random() * 200);
+
+        axios({
+                url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
+                responseType: 'json',
+                method: 'GET',
+        })
+        .then( (res) => {
+            this.setState({
+                pokemonTwo: res.data,
+            })
+        })
+    }
+
+    componentDidMount = () => {
+        this.getPokemonOne();
+        this.getPokemonTwo();
+    }
 
         
         
@@ -122,8 +145,7 @@ class App extends Component {
         //     method: 'GET',
         // }).then( (res) => {
         //     console.log(res.data.chain.evolves_to);
-        // })
-    }
+        // }
 
 
     render() {
@@ -131,8 +153,10 @@ class App extends Component {
             <Router basename={process.env.PUBLIC_URL}>
                 <div className="App">
                     <Route exact path="/" component= { Home } />
-                    <Route path="/BattleScreen" component={ BattleScreen } />
+                    <Route path="/BattleScreen" render={ () => <BattleScreen passPokemonOne={this.state.pokemonOne} passPokemonTwo={this.state.pokemonTwo}/> } />
                     <Route path="/Winner" component={ Winner } />
+                    
+
 
                     {/* <nav>
                         <Link to="/BattleScreen">BattleScreen</Link>

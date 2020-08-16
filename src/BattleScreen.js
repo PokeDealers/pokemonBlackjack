@@ -29,13 +29,25 @@ import './styles.css';
     //When there is a winner (MVP: 1 win) the app will take you to a new screen (Winner.js)
 
 const BattleScreen = (props) => {
+        console.log("props", props);
         return (
             <div>
-                <div>
+                <div className="pokemonContainer">
                     <h1>THIS IS THE BATTLESCREEN!</h1>
 
+                     <div className="pokemonOne">
+                        <p>{props.passPokemonOne.name}</p>
+                        <img src={props.passPokemonOne.sprites} />
+                     </div>
+
+                     <div className="pokemonTwo">
+                        <p>{props.passPokemonTwo.name}</p>
+                        <img src={props.passPokemonTwo.sprites} />
+                     </div>
                     
-                    {/* <h2>It's {props.name}</h2>
+                    {/*  <
+                    <h2>It's {props.name}</h2>
+                     <img src={props.passPokemonOne.sprites.front_default} alt={ props.name }/>
                     <img src={props.sprites.front_default} alt={ props.name }/> */}
                 </div>
                 <Link to="/Winner"><button className="buttonStyle">Show me the winner!</button></Link>
