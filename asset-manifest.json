@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/PokeDealers/pokemonBlackjack/static/css/main.b422d4ad.chunk.css",
+    "main.js": "/PokeDealers/pokemonBlackjack/static/js/main.25f70322.chunk.js",
+    "main.js.map": "/PokeDealers/pokemonBlackjack/static/js/main.25f70322.chunk.js.map",
+    "runtime-main.js": "/PokeDealers/pokemonBlackjack/static/js/runtime-main.8fce3537.js",
+    "runtime-main.js.map": "/PokeDealers/pokemonBlackjack/static/js/runtime-main.8fce3537.js.map",
+    "static/js/2.038a1494.chunk.js": "/PokeDealers/pokemonBlackjack/static/js/2.038a1494.chunk.js",
+    "static/js/2.038a1494.chunk.js.map": "/PokeDealers/pokemonBlackjack/static/js/2.038a1494.chunk.js.map",
+    "index.html": "/PokeDealers/pokemonBlackjack/index.html",
+    "precache-manifest.e27bf0decb64bb23cd76683f49235f8b.js": "/PokeDealers/pokemonBlackjack/precache-manifest.e27bf0decb64bb23cd76683f49235f8b.js",
+    "service-worker.js": "/PokeDealers/pokemonBlackjack/service-worker.js",
+    "static/css/main.b422d4ad.chunk.css.map": "/PokeDealers/pokemonBlackjack/static/css/main.b422d4ad.chunk.css.map",
+    "static/js/2.038a1494.chunk.js.LICENSE.txt": "/PokeDealers/pokemonBlackjack/static/js/2.038a1494.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8fce3537.js",
+    "static/js/2.038a1494.chunk.js",
+    "static/css/main.b422d4ad.chunk.css",
+    "static/js/main.25f70322.chunk.js"
+  ]
+}
