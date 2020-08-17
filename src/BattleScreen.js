@@ -33,30 +33,32 @@ const BattleScreen = (props) => {
 
         return (
             <div className="wrapper battleScreenStyles">
-                <h1>THIS IS THE BATTLESCREEN!</h1>
+                <h1>Get Ready to Battle!</h1>
 
                 <div className="gameContainer">
-
-                    <div className="pokemonOneContainer">
-                            <div className="pokemonImgContainer">
-                                <img src={props.passPokemonInfo.pokemonOneImg.front_default} alt=""/>
-                                <p>{props.passPokemonInfo.pokemonOneName}</p>
-                            </div>
-                            <div className="pokemonOneCardContainer">
-                                {
-                                    props.passPokemonInfo.pokemonOneCards.map( (card) => {
-                                        return (
-                                            <div key={card.code}>
-                                                <img src={card.image} alt="" className="card"/>
-                                            </div>
-                                        )
-                                    })
-                                }
-                                
-                            </div>
+                    <div className="pokemonOneSide">
+                        <div className="pokemonOneContainer">
+                                <div className="pokemonImgContainer">
+                                    <img src={props.passPokemonInfo.pokemonOneImg.front_default} alt=""/>
+                                    <p>{props.passPokemonInfo.pokemonOneName}</p>
+                                </div>
+                                <div className="pokemonOneCardContainer">
+                                    {
+                                        props.passPokemonInfo.pokemonOneCards.map( (card) => {
+                                            return (
+                                                <div key={card.code}>
+                                                    <img src={card.image} alt="" className="card"/>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                        </div>
+                        <button className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
                     </div>
-
-                    <div className="pokemonTwoContainer">
+                    
+                    <div className="pokemonTwoSide">
+                        <div className="pokemonTwoContainer">
                             <div className="pokemonImgContainer">
                                 <img src={props.passPokemonInfo.pokemonTwoImg.front_default} alt=""/>
                                 <p>{props.passPokemonInfo.pokemonTwoName}</p>
@@ -73,14 +75,15 @@ const BattleScreen = (props) => {
                                 }
                                 
                             </div>
+                        </div>
+                        <button className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
                     </div>
+                    
                 </div>
-
-                <button className="drawCard">Draw Card</button>
                 
                 <button className="stand">Stand</button>
                     
-                <Link to="/Winner"><button className="buttonStyle">Winner is...</button></Link>
+                <Link to="/Winner"><button className="buttonStyle">Winner</button></Link>
             </div>
         )
 }

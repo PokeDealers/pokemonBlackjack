@@ -6,7 +6,7 @@ const Winner = () => {
     return (
         <div className="specialTextContainer">
             <h1 className="specialText">Congratulations, you won!</h1>
-            <Link to="/"><button className="buttonStyle">GO HOME</button></Link>
+            <Link to="/"><button className="buttonStyle">Play Again</button></Link>
         </div>
     )
 }

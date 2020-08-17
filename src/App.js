@@ -75,7 +75,6 @@ import './styles.css';
 //Pokemon should evolve!
 
 
-
 class App extends Component {
     constructor() {
         super();
@@ -91,17 +90,17 @@ class App extends Component {
         }
     }
 
-
+    // Function to make API call to get Pokemon One
     getPokemonOne = () => {
         const numGenerator = Math.floor(Math.random() * 200);
 
         axios({
-                url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
-                responseType: 'json',
-                method: 'GET',
+            url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
+            responseType: 'json',
+            method: 'GET',
         })
         .then( (res) => {
-            console.log('api results', res)
+            // console.log('api results', res)
             this.setState({
                 pokemonOneName: res.data.name,
                 pokemonOneImg: res.data.sprites,
@@ -109,6 +108,7 @@ class App extends Component {
         })
     }
 
+    // Function to make API call to get Pokemon Two
     getPokemonTwo = () => {
         const numGenerator = Math.floor(Math.random() * 200);
 
@@ -133,22 +133,22 @@ class App extends Component {
             method: 'GET',
         })
         .then ((res) => {
-            console.log('deck of cards API', res);
-            // storing the deck_id in a variable since we need to re-use it
-            const deckId = res.data.deck_id;
-            // also added "deckId" to state...maybe this will be useful somewhere below?
+            // console.log('deck of cards API', res);
             this.setState({
                 deckId: res.data.deck_id
             })
 
-            // Another axios call, this time using the draw 2 cards endpoint (for pokemonOneCards)
+            // put deckId into a variable so we can re-use it 
+            const deckId = this.state.deckId;
+
+            // Another axios call, this time using the draw 2 cards endpoint (to get pokemonOneCards)
             axios({
                 url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
                 responseType: 'json',
                 method: 'GET',
             })
             .then ((response) => {
-                console.log("draw 2 cards API", response.data.cards);
+                // console.log("draw 2 cards API", response.data.cards);
                 // Setting the cards into state for pokemonOneCards
                 this.setState({
                     pokemonOneCards: response.data.cards
@@ -162,7 +162,7 @@ class App extends Component {
                 method: 'GET',
             })
             .then ((response) => {
-                console.log("draw 2 cards API", response.data.cards);
+                // console.log("draw 2 cards API", response.data.cards);
                 this.setState({
                     // Setting the cards into state for pokemonTwoCards
                     pokemonTwoCards: response.data.cards
@@ -171,17 +171,47 @@ class App extends Component {
         })
     }
 
-    // started trying to work out the logic of clicking the "Draw Card" button, and having the API call to the same deck_id again, to draw 1 more card, but got stumped here lol
-    // drawCardButton = () => {
-    //     axios({
-    //         url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
-    //         responseType: 'json',
-    //         method: 'GET',
-    //     })
-    //     .then ((response) => {
-    //         console.log("drawing one card at a time", response.data.cards);
-    //     })
-    // }
+    // Function for when Pokemon One clicks "Draw Card"
+    drawCardPokemonOne = () => {
+        const deckId = this.state.deckId;
+        
+        axios ({
+            url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
+            method: `GET`,
+            responseType: `json`
+        })
+        .then((res) => {
+            const newCard = res.data.cards[0]
+            // console.log('new card', newCard)
+            const newCardsArray = [...this.state.pokemonOneCards];
+            // console.log('newCardsArray', newCardsArray);
+            newCardsArray.push(newCard);
+            this.setState({
+                pokemonOneCards: newCardsArray
+            })
+        })
+    }
+
+    // Function for when Pokemon Two clicks "Draw Card"
+    drawCardPokemonTwo = () => {
+        const deckId = this.state.deckId;
+        
+        axios ({
+            url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
+            method: `GET`,
+            responseType: `json`
+        })
+        .then((res) => {
+            const newCard = res.data.cards[0]
+            // console.log('new card', newCard)
+            const newCardsArray = [...this.state.pokemonTwoCards];
+            // console.log('newCardsArray', newCardsArray);
+            newCardsArray.push(newCard);
+            this.setState({
+                pokemonTwoCards: newCardsArray
+            })
+        })
+    }
 
     componentDidMount = () => {
         this.getPokemonOne();
@@ -189,18 +219,16 @@ class App extends Component {
         this.getDeckOfCards();
     }
 
-        
-        
-        // Code for trying to get pokemon that evolves - to revisit later!
-       // const randomNumber = Math.ceil(Math.random() * 200);
-        // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
-        // axios({
-        //     url: `https://pokeapi.co/api/v2/evolution-chain/${randomNumber}/`,
-        //     responseType: 'json',
-        //     method: 'GET',
-        // }).then( (res) => {
-        //     console.log(res.data.chain.evolves_to);
-        // }
+    // Code for trying to get pokemon that evolves - to revisit later!
+    // const randomNumber = Math.ceil(Math.random() * 200);
+    // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
+    // axios({
+    //     url: `https://pokeapi.co/api/v2/evolution-chain/${randomNumber}/`,
+    //     responseType: 'json',
+    //     method: 'GET',
+    // }).then( (res) => {
+    //     console.log(res.data.chain.evolves_to);
+    // }
 
 
     render() {
@@ -214,6 +242,8 @@ class App extends Component {
                         render={ () => 
                             <BattleScreen 
                                 passPokemonInfo={ this.state } 
+                                pokemonOneDrawCard={ () => this.drawCardPokemonOne() }
+                                pokemonTwoDrawCard={ () => this.drawCardPokemonTwo() }
                             /> } />
 
                     <Route path="/Winner" component={ Winner } />
@@ -222,7 +252,6 @@ class App extends Component {
                 </div>
             </Router>
         )
-
     }
 }
 
