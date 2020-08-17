@@ -80,9 +80,13 @@ class App extends Component {
         super();
         this.state = {
             pokemonOneName: "",
-            pokemonTwoName: "",
             pokemonOneImg: [],
+            pokemonOneEvolvedName: "",
+            pokemonOneEvolvedImg: [],
+            pokemonTwoName: "",
             pokemonTwoImg: [], 
+            pokemonTwoEvolvedName: "",
+            pokemonTwoEvolvedImg: [],
             pokemonOneCards: [],
             pokemonTwoCards: [],
             deckOfCards: [],
@@ -90,40 +94,122 @@ class App extends Component {
         }
     }
 
-    // Function to make API call to get Pokemon One
+    // Function to get pokemonOne
     getPokemonOne = () => {
-        const numGenerator = Math.floor(Math.random() * 200);
 
+        const numGenerator = Math.floor(Math.random() * 200);
+        // API call to the Pokemon Evolution Chain Endpoint
         axios({
-            url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
-            responseType: 'json',
-            method: 'GET',
+            url: `https://pokeapi.co/api/v2/evolution-chain/${numGenerator}/`,
+            responseType: `json`,
+            method: `GET`
         })
-        .then( (res) => {
-            // console.log('api results', res)
-            this.setState({
-                pokemonOneName: res.data.name,
-                pokemonOneImg: res.data.sprites,
-            })
+        .then((res) => {
+            const evolutionArray = res.data.chain.evolves_to;
+            // check to see if there is an evolution array; if no, call the same function again
+            if (evolutionArray.length === 0) {
+                this.getPokemonOne()
+            } else {
+            // if yes, save the pokemon name and evolved pokemon name into variables
+                const pokemonName = res.data.chain.species.name;
+                const evolvedPokemonName = evolutionArray[0].species.name;
+
+                // set state for pokemonOneName and pokemonOneEvolvedName
+                this.setState({
+                    pokemonOneName: pokemonName,
+                    pokemonOneEvolvedName: evolvedPokemonName
+                })
+
+                // Create empty array for Pokemon image promises 
+                const imagePromises =[];
+
+                // Axios promise for getting the image for pokemonOne
+                const pokemonImagePromise = axios({
+                    url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+                    responseType: `json`,
+                    method: `GET`
+                })
+
+                setTimeout(imagePromises.push(pokemonImagePromise), 100);
+
+                // Axios promise for getting the image for the evolved version of pokemonOne
+                const evolvedPokemonImagePromise = axios({
+                    url: `https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`,
+                    responseType: `json`,
+                    method: `GET`
+                })
+
+                setTimeout(imagePromises.push(evolvedPokemonImagePromise), 100);
+
+                // When both Promises are fulfilled, set state for both pokemon one's images
+                Promise.all(imagePromises).then((res) => {
+                    this.setState({
+                        pokemonOneImg: res[0].data.sprites.front_default,
+                        pokemonOneEvolvedImg: res[1].data.sprites.front_default
+                    })
+                })
+            }
         })
     }
 
-    // Function to make API call to get Pokemon Two
+    // Function to get pokemonTwo
     getPokemonTwo = () => {
-        const numGenerator = Math.floor(Math.random() * 200);
 
+        const numGenerator = Math.floor(Math.random() * 200);
+        // API call to the Pokemon Evolution Chain Endpoint
         axios({
-                url: `https://pokeapi.co/api/v2/pokemon/${numGenerator}`  ,
-                responseType: 'json',
-                method: 'GET',
+            url: `https://pokeapi.co/api/v2/evolution-chain/${numGenerator}/`,
+            responseType: `json`,
+            method: `GET`
         })
-        .then( (res) => {
-            this.setState({
-                pokemonTwoName: res.data.name,
-                pokemonTwoImg: res.data.sprites,
-            })
+        .then((res) => {
+            const evolutionArray = res.data.chain.evolves_to;
+            // check to see if there is an evolution array; if no, call the same function again
+            if (evolutionArray.length === 0) {
+                this.getPokemonTwo()
+            } else {
+            // if yes, save the pokemon name and evolved pokemon name into variables
+                const pokemonName = res.data.chain.species.name;
+                const evolvedPokemonName = evolutionArray[0].species.name;
+
+                // set state for pokemonOneName and pokemonOneEvolvedName
+                this.setState({
+                    pokemonTwoName: pokemonName,
+                    pokemonTwoEvolvedName: evolvedPokemonName
+                })
+
+                // Create empty array for Pokemon image promises 
+                const imagePromises =[];
+
+                // Axios promise for getting the image for pokemonOne
+                const pokemonImagePromise = axios({
+                    url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
+                    responseType: `json`,
+                    method: `GET`
+                })
+
+                setTimeout(imagePromises.push(pokemonImagePromise), 100);
+
+                // Axios promise for getting the image for the evolved version of pokemonOne
+                const evolvedPokemonImagePromise = axios({
+                    url: `https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`,
+                    responseType: `json`,
+                    method: `GET`
+                })
+
+                setTimeout(imagePromises.push(evolvedPokemonImagePromise), 100);
+
+                // When both Promises are fulfilled, set state for both pokemon one's images
+                Promise.all(imagePromises).then((res) => {
+                    this.setState({
+                        pokemonTwoImg: res[0].data.sprites.front_default,
+                        pokemonTwoEvolvedImg: res[1].data.sprites.front_default
+                    })
+                })
+            }
         })
     }
+
 
     // Function to get a new deck of cards (with deck_id)
     getDeckOfCards = () => {
@@ -133,7 +219,6 @@ class App extends Component {
             method: 'GET',
         })
         .then ((res) => {
-            // console.log('deck of cards API', res);
             this.setState({
                 deckId: res.data.deck_id
             })
@@ -148,7 +233,6 @@ class App extends Component {
                 method: 'GET',
             })
             .then ((response) => {
-                // console.log("draw 2 cards API", response.data.cards);
                 // Setting the cards into state for pokemonOneCards
                 this.setState({
                     pokemonOneCards: response.data.cards
@@ -162,7 +246,6 @@ class App extends Component {
                 method: 'GET',
             })
             .then ((response) => {
-                // console.log("draw 2 cards API", response.data.cards);
                 this.setState({
                     // Setting the cards into state for pokemonTwoCards
                     pokemonTwoCards: response.data.cards
@@ -182,9 +265,9 @@ class App extends Component {
         })
         .then((res) => {
             const newCard = res.data.cards[0]
-            // console.log('new card', newCard)
+
             const newCardsArray = [...this.state.pokemonOneCards];
-            // console.log('newCardsArray', newCardsArray);
+
             newCardsArray.push(newCard);
             this.setState({
                 pokemonOneCards: newCardsArray
@@ -203,9 +286,9 @@ class App extends Component {
         })
         .then((res) => {
             const newCard = res.data.cards[0]
-            // console.log('new card', newCard)
+
             const newCardsArray = [...this.state.pokemonTwoCards];
-            // console.log('newCardsArray', newCardsArray);
+            
             newCardsArray.push(newCard);
             this.setState({
                 pokemonTwoCards: newCardsArray
@@ -218,18 +301,6 @@ class App extends Component {
         this.getPokemonTwo();
         this.getDeckOfCards();
     }
-
-    // Code for trying to get pokemon that evolves - to revisit later!
-    // const randomNumber = Math.ceil(Math.random() * 200);
-    // Getting a random pokemon that evolves, and assigning this pokemon to either player 1 or 2
-    // axios({
-    //     url: `https://pokeapi.co/api/v2/evolution-chain/${randomNumber}/`,
-    //     responseType: 'json',
-    //     method: 'GET',
-    // }).then( (res) => {
-    //     console.log(res.data.chain.evolves_to);
-    // }
-
 
     render() {
         return (

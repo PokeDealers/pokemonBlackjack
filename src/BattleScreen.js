@@ -39,7 +39,7 @@ const BattleScreen = (props) => {
                     <div className="pokemonOneSide">
                         <div className="pokemonOneContainer">
                                 <div className="pokemonImgContainer">
-                                    <img src={props.passPokemonInfo.pokemonOneImg.front_default} alt=""/>
+                                    <img src={props.passPokemonInfo.pokemonOneImg} alt=""/>
                                     <p>{props.passPokemonInfo.pokemonOneName}</p>
                                 </div>
                                 <div className="pokemonOneCardContainer">
@@ -60,7 +60,7 @@ const BattleScreen = (props) => {
                     <div className="pokemonTwoSide">
                         <div className="pokemonTwoContainer">
                             <div className="pokemonImgContainer">
-                                <img src={props.passPokemonInfo.pokemonTwoImg.front_default} alt=""/>
+                                <img src={props.passPokemonInfo.pokemonTwoImg} alt=""/>
                                 <p>{props.passPokemonInfo.pokemonTwoName}</p>
                             </div>
                             <div className="pokemonTwoCardContainer">
