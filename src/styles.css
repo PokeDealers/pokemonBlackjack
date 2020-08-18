@@ -38,7 +38,7 @@ button {
     background-color:  #993333;
     transition-property: all;
 	transition-timing-function: ease-in-out; 
-    transition-duration: 1s;
+    transition-duration: 0.3s;
 }
 
 button:hover {
@@ -62,14 +62,14 @@ button:hover {
 .pokemonOneContainer {
     /* border: red dashed 1px; */
     display: flex;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .pokemonTwoContainer {
     /* border: red dashed 1px; */
     display: flex;
     flex-direction: row-reverse;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .pokemonImgContainer {
