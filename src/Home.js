@@ -18,9 +18,11 @@ const Home = () => {
                         <li>If your cards total over 21, you lose!</li>
                     </ul>
                 </section>
-            
-                <Link to="/BattleScreen"><button className="buttonStyle">Start Game</button></Link>
+
                 
+                <Link to="/BattleScreen">
+                    <button className="buttonStyle">Start Game</button></Link>
+                    <img src="./assets/pokeball.png" alt=""/>
             </div>
         )
     }
