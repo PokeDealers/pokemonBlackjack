@@ -90,7 +90,8 @@ class App extends Component {
             pokemonOneCards: [],
             pokemonTwoCards: [],
             deckOfCards: [],
-            deckId: ""
+            deckId: "",
+            pokemonOneTotalValue: "",
         }
     }
 
@@ -234,11 +235,60 @@ class App extends Component {
                 method: 'GET',
             })
             .then ((response) => {
+                // *****Commented this part out, because I think it might be better to setState on pokemonOneCards further down, using the playerOneCards array
                 // Setting the cards into state for pokemonOneCards
-                this.setState({
-                    pokemonOneCards: response.data.cards
+                // this.setState({
+                //     pokemonOneCards: response.data.cards
+                // })
+
+                const cards = response.data.cards;
+                const playerOneCards = [...this.state.pokemonOneCards];
+
+                console.log('API result - 2 cards', cards);
+
+                cards.forEach((card) => {
+                    playerOneCards.push({
+                        number: card.value,
+                        image: card.image,
+                        suit: card.suit,
+                        code: card.code
+                    })
                 })
 
+                this.setState({
+                    pokemonOneCards: playerOneCards
+                })
+
+                console.log('playerOneCards', playerOneCards)
+                console.log('state for pokemonOneCards',this.state.pokemonOneCards);
+
+                // ****** At this point, pokemonOneCards in state is set, and the commented out code below works to calculate the sum of the value of the cards....but only for the two cards that are initially on the screen. Currently trying out to figure out if the below code can be moved to the "Draw Card" function for when a 3rd card gets added
+                // const arrayOfValues = [];
+                // const suits = ["QUEEN", "KING", "JACK"];
+
+                // playerOneCards.forEach((card) => {
+                //     if (suits.includes(card.number)) {
+                //         arrayOfValues.push(10);
+                //     } else if (card.number === "ACE") {
+                //         arrayOfValues.push(11);
+                //     } else {
+                //         arrayOfValues.push(parseInt(card.number))
+                //     }
+                    
+                // })
+
+                // let playerOneTotal = arrayOfValues.reduce((a, b) => a + b, 0);
+
+                // while (playerOneTotal > 21 && arrayOfValues.includes(11)) {
+                //     arrayOfValues[arrayOfValues.indexOf(11, 0)] = 1;
+                //     playerOneTotal = arrayOfValues.reduce((a, b) => a + b, 0);
+                // }
+
+                // console.log('playerOneTotal', playerOneTotal);
+
+                // this.setState({
+                //     pokemonOneTotalValue: playerOneTotal
+                // })
 
 
             })
@@ -277,25 +327,36 @@ class App extends Component {
                 pokemonOneCards: newCardsArray
             })
 
-            const cards = res.data.cards;
-            const playerOneCards = [...this.state.pokemonOneCards]
-            console.log(playerOneCards);
-            
-          
+            console.log('newCardsArray', newCardsArray);
+            console.log('updated state for pokemon cards', this.state.pokemonOneCards)
 
+            // **** currently working here, to see if I can get the same code that worked above (currently commented out) that calculates the sum of pokemonOne's cards, but for it to take into consideration when a 3rd card is added 
             const arrayOfValues = [];
-                const suits = ['QUEEN', 'KING', 'JACK'];
-                // this.playerOneCards.forEach((card) => {
-                //     if (suits.includes(card.number)) {
-                //         arrayOfValues.push(10);
-                //     } else if (card.number === 'ACE') {
-                //         arrayOfValues.push(11);
-                //     } else {
-                //         arrayOfValues.push(parseInt(card.number));
-                //     }
+            const suits = ["QUEEN", "KING", "JACK"];
+
+            this.state.pokemonOneCards.forEach((card) => {
+                if (suits.includes(card.number)) {
+                    arrayOfValues.push(10);
+                } else if (card.number === "ACE") {
+                    arrayOfValues.push(11);
+                } else {
+                    arrayOfValues.push(parseInt(card.number))
+                }
                 
-                // })
-                // console.log(arrayOfValues);
+            })
+
+            let playerOneTotal = arrayOfValues.reduce((a, b) => a + b, 0);
+
+            while (playerOneTotal > 21 && arrayOfValues.includes(11)) {
+                arrayOfValues[arrayOfValues.indexOf(11, 0)] = 1;
+                playerOneTotal = arrayOfValues.reduce((a, b) => a + b, 0);
+            }
+
+            console.log('playerOneTotal', playerOneTotal);
+
+            this.setState({
+                pokemonOneTotalValue: playerOneTotal
+            })
         })
     }
         //Just in case we need a forEach loop for playerOneCards
