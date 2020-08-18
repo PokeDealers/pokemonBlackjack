@@ -352,7 +352,6 @@ class App extends Component {
     // Function for when Pokemon One clicks "Stand" button
     standButtonPokemonOne = () => {
         // On click of the "Stand Button":
-
         // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
         this.checkPokemonOneScore();
 
@@ -368,7 +367,6 @@ class App extends Component {
     // Function for when Pokemon Two clicks "Stand" button
     standButtonPokemonTwo = () => {
         // On click of the "Stand Button":
-
         // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
         this.checkPokemonTwoScore();
 
