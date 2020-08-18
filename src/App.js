@@ -95,6 +95,7 @@ class App extends Component {
         }
     }
 
+
     // Function to get pokemonOne
     getPokemonOne = () => {
 
@@ -358,6 +359,14 @@ class App extends Component {
             })
         })
     }
+        //Just in case we need a forEach loop for playerOneCards
+      // cards.forEach((card) => {
+            //     playerOneCards.push({
+            //         number: card.value,
+            //         suit: card.suit,
+            //         image: card.image
+             //   })
+       //     })
 
     // Function for when Pokemon Two clicks "Draw Card"
     drawCardPokemonTwo = () => {
@@ -384,6 +393,7 @@ class App extends Component {
         this.getPokemonOne();
         this.getPokemonTwo();
         this.getDeckOfCards();
+
     }
 
     render() {
