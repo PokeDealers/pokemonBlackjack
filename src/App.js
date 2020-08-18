@@ -94,6 +94,7 @@ class App extends Component {
         }
     }
 
+
     // Function to get pokemonOne
     getPokemonOne = () => {
 
@@ -237,6 +238,9 @@ class App extends Component {
                 this.setState({
                     pokemonOneCards: response.data.cards
                 })
+
+
+
             })
 
             // Same axios call as above, but to get pokemonTwoCards
@@ -272,8 +276,36 @@ class App extends Component {
             this.setState({
                 pokemonOneCards: newCardsArray
             })
+
+            const cards = res.data.cards;
+            const playerOneCards = [...this.state.pokemonOneCards]
+            console.log(playerOneCards);
+            
+          
+
+            const arrayOfValues = [];
+                const suits = ['QUEEN', 'KING', 'JACK'];
+                // this.playerOneCards.forEach((card) => {
+                //     if (suits.includes(card.number)) {
+                //         arrayOfValues.push(10);
+                //     } else if (card.number === 'ACE') {
+                //         arrayOfValues.push(11);
+                //     } else {
+                //         arrayOfValues.push(parseInt(card.number));
+                //     }
+                
+                // })
+                // console.log(arrayOfValues);
         })
     }
+        //Just in case we need a forEach loop for playerOneCards
+      // cards.forEach((card) => {
+            //     playerOneCards.push({
+            //         number: card.value,
+            //         suit: card.suit,
+            //         image: card.image
+             //   })
+       //     })
 
     // Function for when Pokemon Two clicks "Draw Card"
     drawCardPokemonTwo = () => {
@@ -300,6 +332,7 @@ class App extends Component {
         this.getPokemonOne();
         this.getPokemonTwo();
         this.getDeckOfCards();
+
     }
 
     render() {
