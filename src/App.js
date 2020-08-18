@@ -24,7 +24,10 @@ class App extends Component {
             deckOfCards: [],
             deckId: "",
             pokemonOneCardsValue: "",
-            pokemonTwoCardsValue: ""
+            pokemonTwoCardsValue: "",
+            pokemonOneWins: false,
+            pokemonTwoWins: false,
+            noWinners: false
         }
     }
 
@@ -33,7 +36,7 @@ class App extends Component {
 
     // Function to get pokemonOne
     getPokemonOne = () => {
-        const numGenerator = Math.floor(Math.random() * 200);
+        const numGenerator = Math.floor(Math.random() * 151);
         // API call to the Pokemon Evolution Chain Endpoint
         axios({
             url: `https://pokeapi.co/api/v2/evolution-chain/${numGenerator}/`,
@@ -91,7 +94,7 @@ class App extends Component {
 
     // Function to get pokemonTwo
     getPokemonTwo = () => {
-        const numGenerator = Math.floor(Math.random() * 200);
+        const numGenerator = Math.floor(Math.random() * 151);
         // API call to the Pokemon Evolution Chain Endpoint
         axios({
             url: `https://pokeapi.co/api/v2/evolution-chain/${numGenerator}/`,
@@ -163,7 +166,7 @@ class App extends Component {
             })
             // Based on this deckId, call functions for getting pokemonOne and pokemonTwo's initial two cards
             setTimeout(this.getPokemonOneInitialCards(), 100);
-            setTimeout(this.getPokemonTwoInitialCards(), 100);
+            setTimeout(this.getPokemonTwoInitialCards(), 300);
         })
     }
 
@@ -371,9 +374,41 @@ class App extends Component {
         this.checkPokemonTwoScore();
 
         // (2) Disable the "Draw" button for Pokemon Two
-
-        // (3) Determine who is the winner between Pokemon One and Pokemon Two
         
+
+    
+        // (3) Determine who is the winner between Pokemon One and Pokemon Two
+        const playerOneScore = this.state.pokemonOneCardsValue;
+        // console.log(playerOneScore);
+
+        const playerTwoScore = this.state.pokemonTwoCardsValue;
+        // console.log(playerTwoScore);
+
+        if ( playerOneScore <= 21 && playerOneScore > playerTwoScore ) {
+            this.setState({
+                pokemonOneWins: true
+            });
+        } else if (playerTwoScore <= 21 && playerTwoScore > playerOneScore) {
+            this.setState({
+                pokemonTwoWins: true
+            });
+        } else if ( playerOneScore > 21 && playerTwoScore > 21) {
+            this.setState({
+                noWinners: true
+            });
+        } else if ( playerOneScore === playerTwoScore) {
+            this.setState({
+                noWinners: true
+            });
+        } else if ( playerOneScore <=21 && playerTwoScore >= 22 ) {
+            this.setState({
+                pokemonOneWins: true
+            });
+        } else if (playerTwoScore <=21 && playerOneScore >= 22) {
+            this.setState({
+                pokemonTwoWins: true
+            });
+        }
     }
 
 
@@ -400,7 +435,9 @@ class App extends Component {
                                 pokemonTwoStandButton={ () => this.standButtonPokemonTwo() }
                             /> } />
 
-                    <Route path="/Winner" component={ Winner } />
+                    <Route path="/Winner" 
+                            render= { () => <Winner passState= {this.state} />} />
+                        
                     
 
                 </div>

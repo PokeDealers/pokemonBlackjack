@@ -29,7 +29,7 @@ import './styles.css';
     //When there is a winner (MVP: 1 win) the app will take you to a new screen (Winner.js)
 
 const BattleScreen = (props) => {
-        // console.log("props", props);
+        console.log("props in BattleScreen", props);
 
         return (
             <div className="wrapper battleScreenStyles">
