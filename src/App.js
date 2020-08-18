@@ -23,7 +23,8 @@ class App extends Component {
             pokemonTwoCards: [],
             deckOfCards: [],
             deckId: "",
-            pokemonOneTotalValue: "",
+            pokemonOneCardsValue: "",
+            pokemonTwoCardsValue: ""
         }
     }
 
@@ -197,7 +198,7 @@ class App extends Component {
         })
     }
 
-    
+
     // Function for getting pokemonTwo's first two cards from the draw card endpoint 
     getPokemonTwoInitialCards = () => {
         const deckId = this.state.deckId;
@@ -228,6 +229,7 @@ class App extends Component {
         })
     }
 
+
     // Function for when Pokemon One clicks "Draw Card"
     drawCardPokemonOne = () => {
         const deckId = this.state.deckId;
@@ -249,68 +251,133 @@ class App extends Component {
             this.setState({
                 pokemonOneCards: newCardsArray
             })
-
-            this.checkPokemonOneScore();
         })
     }
-
-    // Function for when Pokemon One clicks "Stand" button
-    standPokemonOne = () => {
-        this.checkPokemonOneScore();
-    }
-
-    // Function for checking the value of Pokemon One's cards
-    checkPokemonOneScore = () => {
-        const cardValuesArray = [];
-        
-        const suits = ["QUEEN", "KING", "JACK"];
-
-        this.state.pokemonOneCards.forEach((card) => {
-            if (suits.includes(card.value)) {
-                cardValuesArray.push(10);
-            } else if (card.value === "ACE") {
-                cardValuesArray.push(11);
-            } else {
-                cardValuesArray.push(parseInt(card.value))
-            }
-            
-        })
-
-            let playerOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
-
-            while (playerOneTotal > 21 && cardValuesArray.includes(11)) {
-                cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
-                playerOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
-            }
-
-            console.log('playerOneTotal', playerOneTotal);
-
-            this.setState({
-                pokemonOneTotalValue: playerOneTotal
-            })
-    }
-    
 
     // Function for when Pokemon Two clicks "Draw Card"
     drawCardPokemonTwo = () => {
         const deckId = this.state.deckId;
-        
+        // Make a call to the draw cards endpoint, using the same deckId as before, and only for 1 card
         axios ({
             url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`,
             method: `GET`,
             responseType: `json`
         })
         .then((res) => {
+            // Store the 1 new card in a variable
             const newCard = res.data.cards[0]
 
+            // Make a duplicate of the this.state.pokemonTwoCards array, which currently has just the initial two cards in it
             const newCardsArray = [...this.state.pokemonTwoCards];
-            
+
+            // Push the new card into the newCardsArray, and re-set state so that pokemonTwoCards is now the newCardsArray (so there should be 3 cards in there now)
             newCardsArray.push(newCard);
             this.setState({
                 pokemonTwoCards: newCardsArray
             })
         })
     }
+
+    // Function for checking the value of Pokemon One's cards
+    checkPokemonOneScore = () => {
+        //Empty array which will be filled with the values of the cards in this.state.pokemonOneCards
+        const cardValuesArray = [];
+        
+        const faceCards = ["QUEEN", "KING", "JACK"];
+
+        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+        this.state.pokemonOneCards.forEach((card) => {
+            if (faceCards.includes(card.value)) {
+                cardValuesArray.push(10);
+            } else if (card.value === "ACE") {
+                cardValuesArray.push(11);
+            } else {
+                cardValuesArray.push(parseInt(card.value))
+            }
+        })
+
+        // Get the total of the values of the array
+        let pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+
+        // Check for if pokemonOne's total is greater than 21, and if there is an Ace in the hand; if yes, change the value of the Ace to 1
+        while (pokemonOneTotal > 21 && cardValuesArray.includes(11)) {
+            cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
+            pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+        }
+
+        console.log('pokemonOneCardsValue', pokemonOneTotal);
+
+        // Set state for pokemonOneCardsValue to be the total value of their cards
+        this.setState({
+            pokemonOneCardsValue: pokemonOneTotal
+        })
+    }
+
+    // Function for checking the value of Pokemon Two's cards
+    checkPokemonTwoScore = () => {
+        //Empty array which will be filled with the values of the cards in this.state.pokemonTwoCards
+        const cardValuesArray = [];
+        
+        const faceCards = ["QUEEN", "KING", "JACK"];
+
+        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+        this.state.pokemonTwoCards.forEach((card) => {
+            if (faceCards.includes(card.value)) {
+                cardValuesArray.push(10);
+            } else if (card.value === "ACE") {
+                cardValuesArray.push(11);
+            } else {
+                cardValuesArray.push(parseInt(card.value))
+            }
+        })
+
+        // Get the total of the values of the array
+        let pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+
+        // Check for if pokemonTwo's total is greater than 21, and if there is an Ace in the hand; if yes, change the value of the Ace to 1
+        while (pokemonTwoTotal > 21 && cardValuesArray.includes(11)) {
+            cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
+            pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+        }
+
+        console.log('pokemonTwoCardsValue', pokemonTwoTotal);
+
+        // Set state for pokemonTwoCardsValue to be the total value of their cards
+        this.setState({
+            pokemonTwoCardsValue: pokemonTwoTotal
+        })
+    }
+
+
+    // Function for when Pokemon One clicks "Stand" button
+    standButtonPokemonOne = () => {
+        // On click of the "Stand Button":
+
+        // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
+        this.checkPokemonOneScore();
+
+        // (2) Disable the "Draw" button for Pokemon One
+
+        // (3) Enable the Draw/Stand buttons for Pokemon Two
+
+        // (4) Toggle-off box-highlight for Pokemon One, and toggle-on box highlight for Pokemon Two
+        
+    }
+
+
+    // Function for when Pokemon Two clicks "Stand" button
+    standButtonPokemonTwo = () => {
+        // On click of the "Stand Button":
+
+        // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
+        this.checkPokemonTwoScore();
+
+        // (2) Disable the "Draw" button for Pokemon Two
+
+        // (3) Determine who is the winner between Pokemon One and Pokemon Two
+        
+    }
+
 
     componentDidMount = () => {
         this.getPokemonOne();
@@ -331,7 +398,8 @@ class App extends Component {
                                 passPokemonInfo={ this.state } 
                                 pokemonOneDrawCard={ () => this.drawCardPokemonOne() }
                                 pokemonTwoDrawCard={ () => this.drawCardPokemonTwo() }
-                                pokemonOneStandButton={ () => this.standPokemonOne() }
+                                pokemonOneStandButton={ () => this.standButtonPokemonOne() }
+                                pokemonTwoStandButton={ () => this.standButtonPokemonTwo() }
                             /> } />
 
                     <Route path="/Winner" component={ Winner } />

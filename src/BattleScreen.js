@@ -78,14 +78,12 @@ const BattleScreen = (props) => {
                             </div>
                         </div>
                         <button className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
-                        <button className="stand">Stand</button>
+                        <button className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
                     </div>
                     
                 </div>
-                
-                
                     
-                <Link to="/Winner"><button className="buttonStyle">Watch Evolution</button></Link>
+                <Link to="/Winner"><button className="buttonStyle">Winner Evolution</button></Link>
             </div>
         )
 }
