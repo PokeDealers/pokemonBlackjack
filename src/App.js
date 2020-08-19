@@ -28,7 +28,9 @@ class App extends Component {
             pokemonTwoCardsValue: "",
             pokemonOneWins: false,
             pokemonTwoWins: false,
-            noWinners: false
+            noWinners: false,
+            buttonDisabledOne: false,
+            buttonDisabledTwo: true
         }
     }
 
@@ -252,10 +254,50 @@ class App extends Component {
 
             // Push the new card into the newCardsArray, and re-set state so that pokemonOneCards is now the newCardsArray (so there should be 3 cards in there now)
             newCardsArray.push(newCard);
+
+
+
             this.setState({
                 pokemonOneCards: newCardsArray
             })
-        })
+
+            const cardValuesArray = [];
+        
+            const faceCards = ["QUEEN", "KING", "JACK"];
+
+        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+            this.state.pokemonOneCards.forEach((card) => {
+                if (faceCards.includes(card.value)) {
+                    cardValuesArray.push(10);
+                } else if (card.value === "ACE") {
+                    cardValuesArray.push(11);
+                } else {
+                    cardValuesArray.push(parseInt(card.value))
+                }
+            })
+
+            // Get the total of the values of the array
+            let pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+
+            // Check for if pokemonOne's total is greater than 21, and if there is an Ace in the hand; if yes, change the value of the Ace to 1
+            while (pokemonOneTotal > 21 && cardValuesArray.includes(11)) {
+                cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
+                pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+            }
+
+            console.log("DRAW CARD ONE BUTTON TOTAL", pokemonOneTotal);
+            
+            if (pokemonOneTotal => 21) {
+                this.setState({
+                    buttonDisabledOne: true,
+                    buttonDisabledTwo: false
+                })
+
+            }
+
+            })
+
+        
     }
 
     // Function for when Pokemon Two clicks "Draw Card"
@@ -279,6 +321,40 @@ class App extends Component {
             this.setState({
                 pokemonTwoCards: newCardsArray
             })
+
+            const cardValuesArray = [];
+        
+            const faceCards = ["QUEEN", "KING", "JACK"];
+
+        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+            this.state.pokemonTwoCards.forEach((card) => {
+                if (faceCards.includes(card.value)) {
+                    cardValuesArray.push(10);
+                } else if (card.value === "ACE") {
+                    cardValuesArray.push(11);
+                } else {
+                    cardValuesArray.push(parseInt(card.value))
+                }
+            })
+
+            // Get the total of the values of the array
+            let pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+
+            // Check for if pokemonOne's total is greater than 21, and if there is an Ace in the hand; if yes, change the value of the Ace to 1
+            while (pokemonTwoTotal > 21 && cardValuesArray.includes(11)) {
+                cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
+                pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+            }
+
+            console.log("DRAW CARD ONE BUTTON TOTAL", pokemonTwoTotal);
+            
+            if (pokemonTwoTotal => 21) {
+                this.setState({
+                
+                    buttonDisabledTwo: true
+                })
+
+            }
         })
     }
 
@@ -307,6 +383,13 @@ class App extends Component {
         while (pokemonOneTotal > 21 && cardValuesArray.includes(11)) {
             cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
             pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
+        }
+
+        if (pokemonOneTotal > 21) {
+            this.setState({
+                buttonDisabledOne: true,
+                buttonDisabledTwo: false
+            })
         }
 
         console.log('pokemonOneCardsValue', pokemonOneTotal);
@@ -358,7 +441,7 @@ class App extends Component {
         // On click of the "Stand Button":
         // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
         this.checkPokemonOneScore();
-
+        
         // (2) Disable the "Draw" button for Pokemon One
 
         // (3) Enable the Draw/Stand buttons for Pokemon Two
