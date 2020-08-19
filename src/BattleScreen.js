@@ -10,13 +10,14 @@ const BattleScreen = (props) => {
                 <h1>Let the battle begin!</h1>
                 <div className="notificationsContainer">
                     <h3>Player One goes first!</h3>
-                    <Link to="/Winner"><button className="buttonStyle">Winner Evolution</button></Link>
+                    <Link to="/Winner"><button disabled={props.passPokemonInfo.winnerDisabled} className="buttonStyle">Winner Evolution</button></Link>
                 </div>
                 <div className="gameContainer">
                     <div className="pokemonOneContainer"> 
                         <div className="gameDetails">
                             <p>Player One</p>
                             <p>{props.passPokemonInfo.pokemonOneName}</p>
+                            <p>{props.passPokemonInfo.pokemonOneScore}</p>
                             <div className="pokemonCards">
                             {
                                 props.passPokemonInfo.pokemonOneCards.map( (card) => {
@@ -42,6 +43,7 @@ const BattleScreen = (props) => {
                         <div className="gameDetails">
                             <p>Player Two</p>
                             <p>{props.passPokemonInfo.pokemonTwoName}</p>
+                            <p>{props.passPokemonInfo.pokemonTwoScore}</p>
                             <div className="pokemonCards">
                             {
                                 props.passPokemonInfo.pokemonTwoCards.map( (card) => {
