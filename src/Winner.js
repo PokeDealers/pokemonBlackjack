@@ -5,7 +5,7 @@ const Winner = (props) => {
 
     return (
         <div className="wrapper specialTextContainer windowC">
-            <h1 className="specialText">Congratulations, you won!</h1>
+            <h1 className="specialText">Congratulations!</h1>
             <div className="winnerContainer">
                 {
                     props.passState.pokemonOneWins === true 
@@ -24,7 +24,7 @@ const Winner = (props) => {
                         : <img src={props.passState.pokemonTwoEvolvedImg} alt=""/>
                     }
                 </div>
-                <a href="/" class="buttonStyle">Play Again</a>
+                <a href="/" className="buttonStyle">Play Again</a>
             </div>
         </div>
     )

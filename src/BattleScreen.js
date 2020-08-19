@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 
 const BattleScreen = (props) => {
-        console.log("props in BattleScreen", props);
+        // console.log("props in BattleScreen", props);
 
         return (
             <div className="wrapper windowB">
                 <h1>Let the battle begin!</h1>
                 <div className="notificationsContainer">
                     <h3>Player One goes first!</h3>
-                    <Link to="/Winner"><button disabled={props.passPokemonInfo.winnerDisabled} className="buttonStyle">Winner Evolution</button></Link>
                 </div>
                 <div className="gameContainer">
                     <div className="pokemonOneContainer"> 
@@ -59,6 +58,7 @@ const BattleScreen = (props) => {
                             <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
                         </div>
                     </div>
+                    <Link to="/Winner"><button disabled={props.passPokemonInfo.winnerDisabled} className="buttonStyle">Winner Evolution</button></Link>
                 </div>
             </div>
         )
