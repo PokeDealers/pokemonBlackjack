@@ -69,12 +69,12 @@ const BattleScreen = (props) => {
                     <div className="notificationsContainer">
                         {
                         props.passPokemonInfo.tieGame === true 
-                        ? <div><h2>It's a tie game!</h2><a href="/" className="buttonStyle">Play Again</a></div>
+                        ? <div><h2>It's a tie game!</h2><Link to="/" className="buttonStyle">Play Again</Link></div>
                         : <h2></h2>
                         }
                         {
                         props.passPokemonInfo.pokemonOneCardsValue > 21 && props.passPokemonInfo.pokemonTwoCardsValue > 21
-                        ? <a href="/">Both players are bust! Click here to play again.</a>
+                        ? <Link to="/">Both players are bust! Click here to play again.</Link>
                         : <h2></h2>
                         }
                     </div>
