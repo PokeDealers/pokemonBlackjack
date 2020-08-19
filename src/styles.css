@@ -33,12 +33,14 @@ p, button{
 button {
     /* width: 200px;
     height: 100px; */
-    margin-top: 20px;
     border: 4px solid black;
     background-color:  #ffff00;
+    width: 100%;
+    margin: 0 auto;
     transition-property: all;
 	transition-timing-function: ease-in-out; 
     transition-duration: 0.3s;
+    
 }
 
 button:hover {
@@ -106,6 +108,7 @@ button:hover {
 
 .specialTextContainer h2 {
     font-size: calc(1.8rem + 1vw);
+    
 }
 
 img {
@@ -113,6 +116,20 @@ img {
     min-height: 200px;
 }
 
+.instructionSection li {
+    line-height: 70px;
+    font-size: calc(1.4rem + 1vw);
+    font-weight: 800;
+    color: #0000ff;
+
+}
+
+.instructionSection {
+    background-image: url(./assets/pokeball.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /* Portrait tablet and small desktops */
 @media (max-width: 940px) {
     .headerText {
