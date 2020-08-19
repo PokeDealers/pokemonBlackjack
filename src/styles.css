@@ -121,7 +121,7 @@ button:focus,
 }
 
 .windowB .notificationsContainer {
-    border: double 0.4rem #142b68;
+    /* border: double 0.4rem #142b68; */
     border-radius: 15px;
     padding: 20px;
     text-align: center;
@@ -183,6 +183,14 @@ button:focus,
 .windowB .gameDetails p:nth-child(2) {
     padding: 10px 0;
     font-size: 1.5rem;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
 }
 
 /* Winner Page Styles */
