@@ -127,6 +127,10 @@ button:focus,
     text-align: center;
 }
 
+.windowB .gameContainer {
+    text-align: center;
+}
+
 .windowB .pokemonOneContainer,
 .windowB .pokemonTwoContainer {
     display: flex;

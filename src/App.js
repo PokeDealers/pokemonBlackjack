@@ -31,10 +31,12 @@ class App extends Component {
             pokemonTwoWins: false,
             noWinners: false,
             buttonDisabledOne: false,
-            buttonDisabledTwo: true
+            buttonDisabledTwo: true,
+            winnerDisabled: true,
+            pokemonOneScore: "",
+            pokemonTwoScore: ""
         }
     }
-
 
     // ********** POKEMON FUNCTIONS **********
 
@@ -95,7 +97,6 @@ class App extends Component {
         })
     }
 
-
     // Function to get pokemonTwo
     getPokemonTwo = () => {
         const numGenerator = Math.floor(Math.random() * 151);
@@ -111,7 +112,7 @@ class App extends Component {
             if (evolutionApiArray.length === 0) {
                 this.getPokemonTwo()
             } else {
-            // if yes, save the pokemon name and evolved pokemon name into variables
+                // if yes, save the pokemon name and evolved pokemon name into variables
                 const pokemonName = res.data.chain.species.name;
                 const evolvedPokemonName = evolutionApiArray[0].species.name;
 
@@ -153,7 +154,6 @@ class App extends Component {
         })
     }
 
-
     // ********** DECK OF CARD FUNCTIONS **********
 
     // Function to get a new deck of cards from the new card endpoint (with deck_id) 
@@ -173,7 +173,6 @@ class App extends Component {
             setTimeout(this.getPokemonTwoInitialCards(), 400);
         })
     }
-
 
     // Function for getting pokemonOne's first two cards from the draw card endpoint
     getPokemonOneInitialCards = () => {
@@ -205,7 +204,6 @@ class App extends Component {
         })
     }
 
-
     // Function for getting pokemonTwo's first two cards from the draw card endpoint 
     getPokemonTwoInitialCards = () => {
         const deckId = this.state.deckId;
@@ -236,7 +234,11 @@ class App extends Component {
         })
     }
 
-
+    // ***********************************
+    //
+    // WHY IS THIS FUNCTION COUNTING CARDS AND LINE 354 - checkPokemonOneScore() IS ALSO COUNTING CARDS... WHY?
+    //
+    // ***********************************
     // Function for when Pokemon One clicks "Draw Card"
     drawCardPokemonOne = () => {
         const deckId = this.state.deckId;
@@ -256,8 +258,6 @@ class App extends Component {
             // Push the new card into the newCardsArray, and re-set state so that pokemonOneCards is now the newCardsArray (so there should be 3 cards in there now)
             newCardsArray.push(newCard);
 
-
-
             this.setState({
                 pokemonOneCards: newCardsArray
             })
@@ -266,7 +266,7 @@ class App extends Component {
         
             const faceCards = ["QUEEN", "KING", "JACK"];
 
-        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+            // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
             this.state.pokemonOneCards.forEach((card) => {
                 if (faceCards.includes(card.value)) {
                     cardValuesArray.push(10);
@@ -285,22 +285,19 @@ class App extends Component {
                 cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
                 pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
             }
-
-            console.log("DRAW CARD ONE BUTTON TOTAL", pokemonOneTotal);
             
-            if (pokemonOneTotal => 21) {
-                this.setState({
-                    buttonDisabledOne: true,
-                    buttonDisabledTwo: false
-                })
-
-            }
-
+            this.setState({
+                pokemonOneScore: pokemonOneTotal
             })
-
-        
+        })    
     }
 
+    // ***********************************
+    //
+    // WHY IS THIS FUNCTION COUNTING CARDS AND LINE 404'ISH - checkPokemonTwoScore() IS ALSO COUNTING CARDS... WHY?
+    //  - We must get rid of BOTH checkpokemonOne and TwoScore() and use the two card calls to get total card count?
+    //
+    // ***********************************
     // Function for when Pokemon Two clicks "Draw Card"
     drawCardPokemonTwo = () => {
         const deckId = this.state.deckId;
@@ -327,7 +324,7 @@ class App extends Component {
         
             const faceCards = ["QUEEN", "KING", "JACK"];
 
-        // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
+            // Need to loop through the cards, and change the values for the faceCards to be 10, the value of the Ace to be 11, and to change the values that are strings into numbers; push the values to cardValuesArray
             this.state.pokemonTwoCards.forEach((card) => {
                 if (faceCards.includes(card.value)) {
                     cardValuesArray.push(10);
@@ -346,19 +343,29 @@ class App extends Component {
                 cardValuesArray[cardValuesArray.indexOf(11, 0)] = 1;
                 pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
             }
-
-            console.log("DRAW CARD ONE BUTTON TOTAL", pokemonTwoTotal);
             
-            if (pokemonTwoTotal => 21) {
-                this.setState({
-                
-                    buttonDisabledTwo: true
-                })
+            this.setState({
+                pokemonTwoScore: pokemonTwoTotal
+            })   
 
-            }
         })
     }
 
+    // CARD COUNTING FUNCTION
+    //
+    //
+    // cardCounter = () => {
+
+        
+    // }
+        
+    
+
+    //*************************************
+    //
+    // IS THIS FUNCTION NEEDED? It is doing same thing as drawpokemonOneCard and Two.
+    //  - Same comment applies to checkPokemonTwoScore();
+    //******************************** 
     // Function for checking the value of Pokemon One's cards
     checkPokemonOneScore = () => {
         //Empty array which will be filled with the values of the cards in this.state.pokemonOneCards
@@ -386,14 +393,13 @@ class App extends Component {
             pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
         }
 
-        if (pokemonOneTotal > 21) {
-            this.setState({
-                buttonDisabledOne: true,
-                buttonDisabledTwo: false
-            })
-        }
-
-        console.log('pokemonOneCardsValue', pokemonOneTotal);
+        // IS THIS EVEN DOING ANYTHING RIGHT NOW? LOOK INTO THIS!!!! (i'm not yelling i swear)
+        // if (pokemonOneTotal > 21) {
+        //     this.setState({
+        //         buttonDisabledOne: true,
+        //         buttonDisabledTwo: false
+        //     })
+        // }
 
         // Set state for pokemonOneCardsValue to be the total value of their cards
         this.setState({
@@ -429,8 +435,6 @@ class App extends Component {
             pokemonTwoTotal = cardValuesArray.reduce((a, b) => a + b, 0);
         }
 
-        console.log('pokemonTwoCardsValue', pokemonTwoTotal);
-
         // Set state for pokemonTwoCardsValue to be the total value of their cards
         this.setState({
             pokemonTwoCardsValue: pokemonTwoTotal
@@ -447,28 +451,26 @@ class App extends Component {
         // (2) Disable the "Draw" button for Pokemon One
 
         // (3) Enable the Draw/Stand buttons for Pokemon Two
+        
+        // When the stand button is clicked, disable button functionality for player 1 and enable button functionality for player 2
+        this.setState({
+            buttonDisabledOne: true,
+            buttonDisabledTwo: false
+        })
 
         // (4) Toggle-off box-highlight for Pokemon One, and toggle-on box highlight for Pokemon Two
         
     }
-
 
     // Function for when Pokemon Two clicks "Stand" button
     standButtonPokemonTwo = () => {
         // On click of the "Stand Button":
         // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
         this.checkPokemonTwoScore();
-
-        // (2) Disable the "Draw" button for Pokemon Two
-        
-
     
-        // (3) Determine who is the winner between Pokemon One and Pokemon Two
         const playerOneScore = this.state.pokemonOneCardsValue;
-        // console.log(playerOneScore);
 
         const playerTwoScore = this.state.pokemonTwoCardsValue;
-        // console.log(playerTwoScore);
 
         if ( playerOneScore <= 21 && playerOneScore > playerTwoScore ) {
             this.setState({
@@ -495,8 +497,13 @@ class App extends Component {
                 pokemonTwoWins: true
             });
         }
-    }
 
+        // When the stand button is clicked, disable button functionality for player 1 and enable button functionality for player 2
+        this.setState({
+            buttonDisabledTwo: true,
+            winnerDisabled: false
+        })
+    }
 
     componentDidMount = () => {
         this.getPokemonOne();
@@ -521,8 +528,10 @@ class App extends Component {
                                 pokemonTwoStandButton={ () => this.standButtonPokemonTwo() }
                             /> } />
 
-                    <Route path="/Winner" 
-                            render= { () => <Winner passState= {this.state} />} />
+                    <Route 
+                        path="/Winner" 
+                        render= { () => <Winner passState= {this.state} />} 
+                    />
                         
                     <Footer />
                 </div>
