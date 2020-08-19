@@ -28,8 +28,8 @@ const Winner = (props) => {
 
             {
                 props.passState.pokemonOneWins === true 
-                ? <h2>Congratulations, you've won! Your Pokemon has evolved into {props.passState.pokemonOneEvolvedName}!</h2>
-                : <h2>Congratulations, you've won! Your Pokemon has evolved into {props.passState.pokemonTwoEvolvedName}!</h2>
+                ? <h2>Congratulations player one, you've won! Your Pokemon has evolved into {props.passState.pokemonOneEvolvedName}!</h2>
+                : <h2>Congratulations player two, you've won! Your Pokemon has evolved into {props.passState.pokemonTwoEvolvedName}!</h2>
             }
 
             <a href="/">Play Again</a>
