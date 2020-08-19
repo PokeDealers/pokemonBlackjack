@@ -30,11 +30,10 @@ class App extends Component {
             pokemonOneWins: false,
             pokemonTwoWins: false,
             noWinners: false,
+            tieGame: false,
             buttonDisabledOne: false,
             buttonDisabledTwo: true,
             winnerDisabled: true,
-            pokemonOneScore: "",
-            pokemonTwoScore: ""
         }
     }
 
@@ -60,6 +59,8 @@ class App extends Component {
                 const evolvedPokemonName = evolutionApiArray[0].species.name;
 
                 // set state for pokemonOneName and pokemonOneEvolvedName
+                // const winnie = `pokemon${pokemonNumber}Name`
+                // this.state[`pokemon${pokemonNumber}Name`]
                 this.setState({
                     pokemonOneName: pokemonName,
                     pokemonOneEvolvedName: evolvedPokemonName
@@ -287,8 +288,14 @@ class App extends Component {
             }
             
             this.setState({
-                pokemonOneScore: pokemonOneTotal
+                pokemonOneCardsValue: pokemonOneTotal
             })
+            if (pokemonOneTotal > 21) {
+                this.setState({
+                    buttonDisabledOne: true,
+                    buttonDisabledTwo: false
+                })
+            }
         })    
     }
 
@@ -345,8 +352,14 @@ class App extends Component {
             }
             
             this.setState({
-                pokemonTwoScore: pokemonTwoTotal
+                pokemonTwoCardsValue: pokemonTwoTotal
             })   
+
+            if (pokemonTwoTotal > 21) {
+                this.setState({
+                    buttonDisabledTwo: true
+                })
+            }
 
         })
     }
@@ -438,6 +451,8 @@ class App extends Component {
         // Set state for pokemonTwoCardsValue to be the total value of their cards
         this.setState({
             pokemonTwoCardsValue: pokemonTwoTotal
+        }, () => {
+            this.standButtonPokemonTwo();
         })
     }
 
@@ -448,9 +463,6 @@ class App extends Component {
         // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
         this.checkPokemonOneScore();
 
-        // (2) Disable the "Draw" button for Pokemon One
-
-        // (3) Enable the Draw/Stand buttons for Pokemon Two
         
         // When the stand button is clicked, disable button functionality for player 1 and enable button functionality for player 2
         this.setState({
@@ -458,7 +470,6 @@ class App extends Component {
             buttonDisabledTwo: false
         })
 
-        // (4) Toggle-off box-highlight for Pokemon One, and toggle-on box highlight for Pokemon Two
         
     }
 
@@ -466,43 +477,49 @@ class App extends Component {
     standButtonPokemonTwo = () => {
         // On click of the "Stand Button":
         // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
-        this.checkPokemonTwoScore();
+        // this.checkPokemonTwoScore();
     
         const playerOneScore = this.state.pokemonOneCardsValue;
+        console.log('playerOneScore', playerOneScore);
 
         const playerTwoScore = this.state.pokemonTwoCardsValue;
+        console.log('playerTwoScore', playerTwoScore);
+        console.log('state for pokemonTwoCardsValue', this.state.pokemonTwoCardsValue)
 
-        if ( playerOneScore <= 21 && playerOneScore > playerTwoScore ) {
-            this.setState({
-                pokemonOneWins: true
-            });
-        } else if (playerTwoScore <= 21 && playerTwoScore > playerOneScore) {
-            this.setState({
-                pokemonTwoWins: true
-            });
-        } else if ( playerOneScore > 21 && playerTwoScore > 21) {
-            this.setState({
-                noWinners: true
-            });
-        } else if ( playerOneScore === playerTwoScore) {
-            this.setState({
-                noWinners: true
-            });
-        } else if ( playerOneScore <=21 && playerTwoScore >= 22 ) {
-            this.setState({
-                pokemonOneWins: true
-            });
-        } else if (playerTwoScore <=21 && playerOneScore >= 22) {
-            this.setState({
-                pokemonTwoWins: true
-            });
-        }
 
-        // When the stand button is clicked, disable button functionality for player 1 and enable button functionality for player 2
-        this.setState({
-            buttonDisabledTwo: true,
-            winnerDisabled: false
-        })
+        if (playerOneScore > playerTwoScore) {
+            if (playerOneScore <= 21) {
+                this.setState({
+                    pokemonOneWins: true
+                });
+            } else if (playerOneScore > 21) {
+                this.setState({
+                    pokemonTwoWins: true
+                });
+            }
+        } else if (playerTwoScore > playerOneScore) {
+            if (playerTwoScore <= 21) {
+                this.setState({
+                    pokemonTwoWins: true
+                });
+            } else if (playerTwoScore > 21) {
+                this.setState({
+                    pokemonOneWins: true
+                });
+            }
+        } else if (playerOneScore === playerTwoScore) {
+            if ( playerOneScore > 21 && playerTwoScore > 21) {
+                this.setState({
+                    noWinners: true,
+                    winnerDisabled: true
+                });
+            } else if (playerOneScore <= 21 && playerTwoScore <= 21) {
+                this.setState({
+                    tieGame: true,
+                    winnerDisabled: true
+                });
+            }
+        } 
     }
 
     componentDidMount = () => {
@@ -525,7 +542,7 @@ class App extends Component {
                                 pokemonOneDrawCard={ () => this.drawCardPokemonOne() }
                                 pokemonTwoDrawCard={ () => this.drawCardPokemonTwo() }
                                 pokemonOneStandButton={ () => this.standButtonPokemonOne() }
-                                pokemonTwoStandButton={ () => this.standButtonPokemonTwo() }
+                                pokemonTwoCheckScoreButton={ () => this.checkPokemonTwoScore() }
                             /> } />
 
                     <Route 

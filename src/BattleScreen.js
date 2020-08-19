@@ -3,20 +3,21 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 
 const BattleScreen = (props) => {
-        // console.log("props in BattleScreen", props);
 
         return (
             <div className="wrapper windowB">
                 <h1>Let the battle begin!</h1>
-                <div className="notificationsContainer">
-                    <h3>Player One goes first!</h3>
-                </div>
                 <div className="gameContainer">
                     <div className="pokemonOneContainer"> 
                         <div className="gameDetails">
                             <p>Player One</p>
                             <p>{props.passPokemonInfo.pokemonOneName}</p>
-                            <p>{props.passPokemonInfo.pokemonOneScore}</p>
+                            <p>{props.passPokemonInfo.pokemonOneCardsValue}</p>
+                            {
+                                    props.passPokemonInfo.pokemonOneCardsValue > 21 
+                                    ? <p>You've busted!</p>
+                                    : <p></p>
+                            }
                             <div className="pokemonCards">
                             {
                                 props.passPokemonInfo.pokemonOneCards.map( (card) => {
@@ -42,7 +43,14 @@ const BattleScreen = (props) => {
                         <div className="gameDetails">
                             <p>Player Two</p>
                             <p>{props.passPokemonInfo.pokemonTwoName}</p>
-                            <p>{props.passPokemonInfo.pokemonTwoScore}</p>
+                            <p>{props.passPokemonInfo.pokemonTwoCardsValue}</p>
+                            
+                                {
+                                    props.passPokemonInfo.pokemonTwoCardsValue > 21 
+                                    ? <p>You've busted!</p>
+                                    : <p></p>
+                                }
+                            
                             <div className="pokemonCards">
                             {
                                 props.passPokemonInfo.pokemonTwoCards.map( (card) => {
@@ -55,10 +63,22 @@ const BattleScreen = (props) => {
                             }
                             </div>
                             <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
-                            <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
+                            <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoCheckScoreButton }>Stand</button>
                         </div>
                     </div>
-                    <Link to="/Winner"><button disabled={props.passPokemonInfo.winnerDisabled} className="buttonStyle">Winner Evolution</button></Link>
+                    <div className="notificationsContainer">
+                        {
+                        props.passPokemonInfo.tieGame === true 
+                        ? <div><h2>It's a tie game!</h2><a href="/" className="buttonStyle">Play Again</a></div>
+                        : <h2></h2>
+                        }
+                        {
+                        props.passPokemonInfo.pokemonOneCardsValue > 21 && props.passPokemonInfo.pokemonTwoCardsValue > 21
+                        ? <a href="/">Both players are bust! Click here to play again.</a>
+                        : <h2></h2>
+                        }
+                    </div>
+                    <Link to="/Winner" className={ props.passPokemonInfo.winnerDisabled ? "hidden" : "visible"}><button className="buttonStyle">Winner Evolution</button></Link>
                 </div>
             </div>
         )
