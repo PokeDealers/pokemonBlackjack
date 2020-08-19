@@ -9,7 +9,7 @@ const BattleScreen = (props) => {
             <div className="wrapper windowB">
                 <h1>Let the battle begin!</h1>
                 <div className="notificationsContainer">
-                    <p>Player One goes first!</p>
+                    <h3>Player One goes first!</h3>
                     <Link to="/Winner"><button className="buttonStyle">Winner Evolution</button></Link>
                 </div>
                 <div className="gameContainer">
@@ -28,14 +28,12 @@ const BattleScreen = (props) => {
                                 })
                             }
                             </div>
-                            <button className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
-                            <button className="stand" onClick={ props.pokemonOneStandButton }>Stand</button>
+                            <button disabled={props.passPokemonInfo.buttonDisabledOne}  className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
+                            <button disabled={props.passPokemonInfo.buttonDisabledOne} className="stand" onClick={ props.pokemonOneStandButton }>Stand</button>
                         </div>
                         <div className="pokemonImgContainer">
                             <img src={props.passPokemonInfo.pokemonOneImg} alt=""/>
                         </div>
-                        <button disabled={props.passPokemonInfo.buttonDisabledOne} className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
-                        <button disabled={props.passPokemonInfo.buttonDisabledOne} className="stand" onClick={ props.pokemonOneStandButton }>Stand</button>
                     </div>
                     <div className="pokemonTwoContainer">
                         <div className="pokemonImgContainer">
@@ -55,11 +53,9 @@ const BattleScreen = (props) => {
                                 })
                             }
                             </div>
-                            <button className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
-                            <button className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
+                            <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
+                            <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
                         </div>
-                        <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
-                        <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
                     </div>
                 </div>
             </div>

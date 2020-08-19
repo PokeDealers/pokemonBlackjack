@@ -2,37 +2,30 @@ import React from 'react'
 import './styles.css';
 
 const Winner = (props) => {
-    // console.log('props in Winners', props);
-
-    // if (props.passState.pokemonOneWins === true) {
-         
-    //     const pokemonOneWinner = <img src={props.passState.pokemonOneEvolvedImg} alt=""/>
-        
-    // } else if (props.passState.pokemonTwoWins === true) {
-         
-    //     const pokemonTwoWinner = <img src={props.passState.pokemonTwoEvolvedImg} alt=""/>
-        
-    // }
-
-
 
     return (
-        <div className="specialTextContainer">
+        <div className="wrapper specialTextContainer windowC">
             <h1 className="specialText">Congratulations, you won!</h1>
-            {/* changed "Play Again" from a Link to an anchor tag, because we need the app to refresh so that the battlescreen pokemon/cards refresh */}
-            {
-                props.passState.pokemonOneWins === true 
-                ? <img src={props.passState.pokemonOneEvolvedImg} alt=""/>
-                : <img src={props.passState.pokemonTwoEvolvedImg} alt=""/>
-            }
-
-            {
-                props.passState.pokemonOneWins === true 
-                ? <h2>Congratulations player one, you've won! Your Pokemon has evolved into {props.passState.pokemonOneEvolvedName}!</h2>
-                : <h2>Congratulations player two, you've won! Your Pokemon has evolved into {props.passState.pokemonTwoEvolvedName}!</h2>
-            }
-
-            <a href="/">Play Again</a>
+            <div className="winnerContainer">
+                {
+                    props.passState.pokemonOneWins === true 
+                    ? <h2>Congratulations Player One, you've won!</h2>
+                    : <h2>Congratulations Player Two, you've won!</h2>
+                }
+                {
+                    props.passState.pokemonOneWins === true 
+                    ? <h2><span>{props.passState.pokemonOneName}</span> has evolved into <span>{props.passState.pokemonOneEvolvedName}</span>!</h2>
+                    : <h2><span>{props.passState.pokemonTwoName}</span> has evolved into <span>{props.passState.pokemonTwoEvolvedName}</span>!</h2>
+                }
+                <div className="winnerImageContainer">
+                    {
+                        props.passState.pokemonOneWins === true 
+                        ? <img src={props.passState.pokemonOneEvolvedImg} alt=""/>
+                        : <img src={props.passState.pokemonTwoEvolvedImg} alt=""/>
+                    }
+                </div>
+                <a href="/" class="buttonStyle">Play Again</a>
+            </div>
         </div>
     )
 }

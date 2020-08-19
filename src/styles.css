@@ -8,11 +8,24 @@ img { max-width: 100%; height: auto; display: block;} body, h1, h2, h3, h4, h5, 
 
 @import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Montserrat&display=swap');
 
+/* General Styles */
+
 html {
     font-size: 125%; /* 20px */
 }
 
-div.App {
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1,
+button,
+.buttonStyle,
+.windowB .gameDetails p:nth-child(2) {
+    font-family: 'Carter One', cursive;
+}
+
+.App {
     background-color: #edfeff;
 }
 
@@ -23,44 +36,75 @@ div.App {
 }
 
 h1 {
-    font-size: calc(1rem + 2.5vw);
-    background-color: #142B68;
-    color: white;
-    margin: 0 auto;
-    height: 65px;
+    padding: 40px 0;
+    font-size: 2.5rem;
     text-align: center;
+    text-shadow: 3px 3px 0px #ffff00;
+    text-transform: uppercase;
+    color: #142b68;
 }
 
-p, button{
-    font-size: calc(1.2rem + 1vw);
+h2 {
+    margin: 10px 0;
 }
 
-button {
-    /* width: 200px;
-    height: 100px; */
-    border: 4px solid black;
-    background-color:  #ffff00;
-    width: 100%;
-    margin: 0 auto;
-    transition-property: all;
-	transition-timing-function: ease-in-out; 
-    transition-duration: 0.3s;
+button,
+.buttonStyle {
+    color: #142b68;
+    background-color: #ffff00;
+    border-radius: 12px;
+    border: #142b68;
+    font-size: 1.2rem;
+    margin: 20px auto;
+    padding: 5px 10px;
+    display: block;
+    box-shadow: 5px 5px 5px #142b68;
+
+}
+
+button:hover,
+button:focus,
+.buttonStyle:hover,
+.buttonStyle:focus {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+/* Home Page Styles  */
+
+.windowA .instructionSection {
+    font-size: calc(0.8rem + 1vw);
+} 
+
+.windowA .specialTextContainer h2 {
+    font-size: calc(1.8rem + 1vw);
     
 }
 
+.windowA img {
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.windowA .instructionSection li {
+    line-height: 2rem;
+    color: #edfeff;
+}
+
+.windowA .instructionSection {
+    border: #edfeff double 1rem;
+    border-radius: 12px;
+    padding: 20px 30px;
+    background-color: #142b68;
+    display: flex;
+}
+
+.windowA .pokeBallImage {
+    margin: 0 10px;
+    align-self: center;
+}
 
 /* BattleScreen Styles */
-
-.windowB,
-footer {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.windowB h1,
-.windowB button,
-.windowB .gameDetails p:nth-child(2) {
-    font-family: 'Carter One', cursive;
-}
 
 .windowB h1 {
     padding: 40px 0;
@@ -72,19 +116,8 @@ footer {
 }
 
 .windowB button {
-    color: #142b68;
-    background-color: #ffff00;
-    border-radius: 12px;
-    border: #142b68;
-    font-size: 1.2rem;
-    margin: 20px;
-    padding: 5px 10px;
-}
-
-.windowB button:hover,
-.windowB button:focus {
-    transform: scale(1.1);
-    transition: 0.3s;
+    display: inline-block;
+    margin: 15px;
 }
 
 .windowB .notificationsContainer {
@@ -139,14 +172,48 @@ footer {
     box-shadow: 7px 7px 0px #ffff00; 
 }
 
-.windowB .gameDetails p:first-of-type {
+.windowB h3 {
     font-size: 1.2rem;
 }
 
 .windowB .gameDetails p:nth-child(2) {
     padding: 10px 0;
+    font-size: 1.5rem;
 }
 
+/* Winner Page Styles */
+.windowC {
+    height: 100vh;
+}
+
+.windowC .winnerContainer {
+    border: double 1rem #142b68;
+    border-radius: 12px;
+    padding: 20px; 
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.windowC .winnerImageContainer img {
+    margin: 0 auto;
+}
+
+.windowC img {
+    width: 300px;
+}
+
+.windowC .buttonStyle {
+    display: inline-block;
+    padding: 10px 15px;
+}
+
+.windowC span {
+    text-transform: capitalize;
+}
+
+
+
+/* Footer Styles  */
 footer {
     background: #142b68;
     color: #edfeff;
@@ -159,49 +226,12 @@ footer p {
 }
 
 
-
-
-.App {
-    background-color: #edfeff;
-}
-
-.instructionSection, a {
-    border: 2px solid black;
-    font-size: calc(1rem + 1vw);
-} 
-
-.specialTextContainer h2 {
-    font-size: calc(1.8rem + 1vw);
-    
-}
-
-img {
-    min-width: 200px;
-    min-height: 200px;
-}
-
-.instructionSection li {
-    line-height: 70px;
-    font-size: calc(1.4rem + 1vw);
-    font-weight: 800;
-    color: #0000ff;
-
-}
-
-.instructionSection {
-    background-image: url(./assets/pokeball.svg);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
 /* Portrait tablet and small desktops */
 @media (max-width: 940px) {
-    .headerText {
+    /* .windowA .headerText {
         height: 90px;
         font-size: calc(2rem + 0.5vw);
-    }
+    } */
 }
 
 /* Landscape phone to portrait tablet */
@@ -209,18 +239,18 @@ img {
 }
 
 @media (max-width: 650px) {
-    .specialText {
+    .windowA .specialText {
         font-size: calc(1.8rem + 0.5vw);
     }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-    .headerText {
+    .windowA .headerText {
         font-size: calc(1rem + 4vw);
         height: 100px;
     }
-    .specialText {
+    .windowC .specialText {
         font-size: calc(1.3rem + 1vw);
         height: 40px;
     }
