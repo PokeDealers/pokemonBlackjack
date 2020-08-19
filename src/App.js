@@ -4,6 +4,7 @@ import axios from 'axios'
 import BattleScreen from './BattleScreen';
 import Home from './Home';
 import Winner from './Winner';
+import Footer from './Footer';
 import './styles.css';
 
 
@@ -166,7 +167,7 @@ class App extends Component {
             })
             // Based on this deckId, call functions for getting pokemonOne and pokemonTwo's initial two cards
             setTimeout(this.getPokemonOneInitialCards(), 100);
-            setTimeout(this.getPokemonTwoInitialCards(), 300);
+            setTimeout(this.getPokemonTwoInitialCards(), 400);
         })
     }
 
@@ -438,8 +439,7 @@ class App extends Component {
                     <Route path="/Winner" 
                             render= { () => <Winner passState= {this.state} />} />
                         
-                    
-
+                    <Footer />
                 </div>
             </Router>
         )
