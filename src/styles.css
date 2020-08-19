@@ -6,10 +6,15 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 
 img { max-width: 100%; height: auto; display: block;} body, h1, h2, h3, h4, h5, h6, p, ol, ul { margin: 0; padding: 0; font-weight: normal;} ol, ul {list-style: none;} a {text-decoration: none;}
 
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Montserrat&display=swap');
+
 html {
     font-size: 125%; /* 20px */
 }
 
+div.App {
+    background-color: #edfeff;
+}
 
 .wrapper {
     width: 85%;
@@ -18,11 +23,11 @@ html {
 }
 
 h1 {
-    font-size: calc(1.5rem + 1.5vw);
-    background-color: black;
+    font-size: calc(1rem + 2.5vw);
+    background-color: #142B68;
     color: white;
     margin: 0 auto;
-    height: 50px;
+    height: 65px;
     text-align: center;
 }
 
@@ -33,67 +38,190 @@ p, button{
 button {
     /* width: 200px;
     height: 100px; */
-    margin-top: 20px;
     border: 4px solid black;
-    background-color:  #993333;
+    background-color:  #ffff00;
+    width: 100%;
+    margin: 0 auto;
     transition-property: all;
 	transition-timing-function: ease-in-out; 
     transition-duration: 0.3s;
+    
 }
 
-button:hover {
-    background-color: black;
-    color: white;
-}
 
 /* BattleScreen Styles */
 
-.pokemonImgContainer img {
-    width: 200px;
+.windowB,
+footer {
+    font-family: 'Montserrat', sans-serif;
 }
 
-.gameContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    height: 60vh;
+.windowB h1,
+.windowB button,
+.windowB .gameDetails p:nth-child(2) {
+    font-family: 'Carter One', cursive;
 }
 
-.pokemonOneContainer {
-    /* border: red dashed 1px; */
-    display: flex;
-    text-transform: capitalize;
+.windowB h1 {
+    padding: 40px 0;
+    font-size: 2.5rem;
+    text-align: center;
+    text-shadow: 3px 3px 0px #ffff00;
+    text-transform: uppercase;
+    color: #142b68;
 }
 
-.pokemonTwoContainer {
-    /* border: red dashed 1px; */
-    display: flex;
-    flex-direction: row-reverse;
-    text-transform: capitalize;
+.windowB button {
+    color: #142b68;
+    background-color: #ffff00;
+    border-radius: 12px;
+    border: #142b68;
+    font-size: 1.2rem;
+    margin: 20px;
+    padding: 5px 10px;
 }
 
-.pokemonImgContainer {
+.windowB button:hover,
+.windowB button:focus {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.windowB .notificationsContainer {
+    border: double 0.4rem #142b68;
+    border-radius: 15px;
+    padding: 20px;
     text-align: center;
 }
 
-.pokemonOneCardContainer,
-.pokemonTwoCardContainer {
-    /* border: dotted blue 1px; */
+.windowB .pokemonOneContainer,
+.windowB .pokemonTwoContainer {
     display: flex;
+    text-transform: capitalize;
     flex-wrap: wrap;
-    width: 250px;
+    margin: 50px 0;
 }
 
-.pokemonOneSide,
-.pokemonTwoSide {
-    background: #edfeff;
+.windowB .pokemonImgContainer {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
-.card {
+.windowB .pokemonImgContainer img {
+    width: 295px;
+    background-color: #ffff00;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.windowB .gameDetails {
+    text-align: center;
+    background-color: #142b68;
+    padding: 20px 60px;
+    border-radius: 15px;
+    color: #ffff00;
+    width: 500px;
+    border: double 1rem #edfeff;
+    margin: 0 auto;
+}
+
+.windowB .pokemonCards {
+    display: flex;
+    justify-content: center;
+}
+
+.windowB .card {
     width: 100px;
-    margin: 5px;
+    margin: 15px;
+    box-shadow: 7px 7px 0px #ffff00; 
+}
+
+.windowB .gameDetails p:first-of-type {
+    font-size: 1.2rem;
+}
+
+.windowB .gameDetails p:nth-child(2) {
+    padding: 10px 0;
+}
+
+footer {
+    background: #142b68;
+    color: #edfeff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1rem;
 }
 
 
 
 
+.App {
+    background-color: #edfeff;
+}
+
+.instructionSection, a {
+    border: 2px solid black;
+    font-size: calc(1rem + 1vw);
+} 
+
+.specialTextContainer h2 {
+    font-size: calc(1.8rem + 1vw);
+    
+}
+
+img {
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.instructionSection li {
+    line-height: 70px;
+    font-size: calc(1.4rem + 1vw);
+    font-weight: 800;
+    color: #0000ff;
+
+}
+
+.instructionSection {
+    background-image: url(./assets/pokeball.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+    .headerText {
+        height: 90px;
+        font-size: calc(2rem + 0.5vw);
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+}
+
+@media (max-width: 650px) {
+    .specialText {
+        font-size: calc(1.8rem + 0.5vw);
+    }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .headerText {
+        font-size: calc(1rem + 4vw);
+        height: 100px;
+    }
+    .specialText {
+        font-size: calc(1.3rem + 1vw);
+        height: 40px;
+    }
+}

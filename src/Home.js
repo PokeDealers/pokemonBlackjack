@@ -6,21 +6,24 @@ const Home = () => {
             <div className="wrapper">
                 <header>
                     <div className="headerTextContainer">
-                    <h1 className="headerText">PokeDealers presents Pokemon BlackJack</h1>
+                    <h1 className="headerText">PokeDealers presents Pokemon Blackjack</h1>
                     </div>
                     
                 </header>
                 <section className="instructionSection">
                     <ul>
-                        <li>Each Pokemon will start with two cards.</li>
-                        <li>You can choose to stand or draw another card.</li>
-                        <li>The goal of the game is to get the total value of your cards as close to 21, without going over!</li>
-                        <li>If your cards total over 21, you lose!</li>
+                        <li>The goal of pokemon blackjack is to beat your opponent's hand without going over 21.</li>
+                        <li>Whoever is closest to 21 with going over is the winner. Going over 21 will result in busting. (which is a loss)</li>
+                        <li>You can choose to stand or hit(to draw another card).</li>
+                        <li>Face cards are worth 10</li>
+                        <li>Ace can be worth 11 or 1 depending on if your cards exceed 21, if they do, ace will become worth 1.</li>
+                        <li>If you win, you may get a chance to see something special!</li>
                     </ul>
                 </section>
-            
-                <Link to="/BattleScreen"><button className="buttonStyle">Start Game</button></Link>
-                
+
+                <Link to="/BattleScreen">
+                    <button className="buttonStyle">Start Game</button></Link>
+               
             </div>
         )
     }
