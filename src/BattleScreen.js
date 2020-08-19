@@ -54,8 +54,8 @@ const BattleScreen = (props) => {
                                     }
                                 </div>
                         </div>
-                        <button className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
-                        <button className="stand" onClick={ props.pokemonOneStandButton }>Stand</button>
+                        <button disabled={props.passPokemonInfo.buttonDisabledOne} className="drawCard" onClick={ props.pokemonOneDrawCard }>Draw Card</button>
+                        <button disabled={props.passPokemonInfo.buttonDisabledOne} className="stand" onClick={ props.pokemonOneStandButton }>Stand</button>
                     </div>
                     
                     <div className="pokemonTwoSide">
@@ -77,8 +77,8 @@ const BattleScreen = (props) => {
                                 
                             </div>
                         </div>
-                        <button className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
-                        <button className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
+                        <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="drawCard" onClick={ props.pokemonTwoDrawCard }>Draw Card</button>
+                        <button disabled={props.passPokemonInfo.buttonDisabledTwo} className="stand" onClick={ props.pokemonTwoStandButton }>Stand</button>
                     </div>
                     
                 </div>
