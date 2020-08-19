@@ -24,6 +24,7 @@ class App extends Component {
             pokemonTwoCards: [],
             deckOfCards: [],
             deckId: "",
+            anyPokemonCardsValue: "",
             pokemonOneCardsValue: "",
             pokemonTwoCardsValue: "",
             pokemonOneWins: false,
@@ -400,6 +401,7 @@ class App extends Component {
         })
     }
 
+
     // Function for checking the value of Pokemon Two's cards
     checkPokemonTwoScore = () => {
         //Empty array which will be filled with the values of the cards in this.state.pokemonTwoCards
@@ -441,7 +443,7 @@ class App extends Component {
         // On click of the "Stand Button":
         // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
         this.checkPokemonOneScore();
-        
+
         // (2) Disable the "Draw" button for Pokemon One
 
         // (3) Enable the Draw/Stand buttons for Pokemon Two

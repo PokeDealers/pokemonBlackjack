@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 
 const BattleScreen = (props) => {
-        console.log("props in BattleScreen", props);
+        // console.log("props in BattleScreen", props);
 
         return (
             <div className="wrapper windowB">
