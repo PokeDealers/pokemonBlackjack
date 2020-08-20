@@ -46,6 +46,7 @@ h1 {
 
 h2 {
     margin: 10px 0;
+    font-size: 1.5rem;
 }
 
 button,
@@ -59,7 +60,18 @@ button,
     padding: 5px 10px;
     display: block;
     box-shadow: 5px 5px 5px #142b68;
+}
 
+.windowB a {
+    color: #142b68;
+    background-color: #ffff00;
+    border-radius: 12px;
+    border: #142b68;
+    font-size: 1.2rem;
+    margin: 20px auto;
+    padding: 5px 10px;
+    display: inline-block;
+    box-shadow: 5px 5px 5px #142b68;
 }
 
 button:hover,
