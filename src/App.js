@@ -12,6 +12,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+            deckId: "",
+            deckOfCards: [],
             pokemonOneName: "",
             pokemonOneImg: [],
             pokemonOneEvolvedName: "",
@@ -22,25 +24,22 @@ class App extends Component {
             pokemonTwoEvolvedImg: [],
             pokemonOneCards: [],
             pokemonTwoCards: [],
-            deckOfCards: [],
-            deckId: "",
-            anyPokemonCardsValue: "",
             pokemonOneCardsValue: "",
             pokemonTwoCardsValue: "",
             pokemonOneWins: false,
             pokemonTwoWins: false,
-            noWinners: false,
-            tieGame: false,
             buttonDisabledOne: false,
             buttonDisabledTwo: true,
-            winnerDisabled: true,
+            // noWinners: false,
+            // tieGame: false,
+            // winnerDisabled: true,
         }
     }
 
     // ********** POKEMON FUNCTIONS **********
 
-    // Function to get pokemonOne
-    getPokemonOne = () => {
+    // Function to get pokemon
+    getPokemon = (playerNumber) => {
         const numGenerator = Math.floor(Math.random() * 151);
         // API call to the Pokemon Evolution Chain Endpoint
         axios({
@@ -52,106 +51,56 @@ class App extends Component {
             const evolutionApiArray = res.data.chain.evolves_to;
             // check to see if there is an evolution array; if no, call the same function again
             if (evolutionApiArray.length === 0) {
-                this.getPokemonOne()
+                this.getPokemon()
             } else {
             // if yes, save the pokemon name and evolved pokemon name into variables
                 const pokemonName = res.data.chain.species.name;
                 const evolvedPokemonName = evolutionApiArray[0].species.name;
 
-                // set state for pokemonOneName and pokemonOneEvolvedName
-                // const winnie = `pokemon${pokemonNumber}Name`
-                // this.state[`pokemon${pokemonNumber}Name`]
+                // set state for pokemon(Number)Name and pokemon(Number)EvolvedName
                 this.setState({
-                    pokemonOneName: pokemonName,
-                    pokemonOneEvolvedName: evolvedPokemonName
-                })
-
-                // Create empty array for Pokemon image promises 
-                const imagePromises =[];
-
-                // Axios promise for getting the image for pokemonOne
-                const pokemonImagePromise = axios({
-                    url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-                    responseType: `json`,
-                    method: `GET`
-                })
-
-                setTimeout(imagePromises.push(pokemonImagePromise), 100);
-
-                // Axios promise for getting the image for the evolved version of pokemonOne
-                const evolvedPokemonImagePromise = axios({
-                    url: `https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`,
-                    responseType: `json`,
-                    method: `GET`
-                })
-
-                setTimeout(imagePromises.push(evolvedPokemonImagePromise), 100);
-
-                // When both Promises are fulfilled, set state for both pokemon one's images
-                Promise.all(imagePromises).then((res) => {
-                    this.setState({
-                        pokemonOneImg: res[0].data.sprites.front_default,
-                        pokemonOneEvolvedImg: res[1].data.sprites.front_default
-                    })
+                    [`pokemon${playerNumber}Name`]: pokemonName,
+                    [`pokemon${playerNumber}EvolvedName`]: evolvedPokemonName
+                }, () => {
+                    this.getPokemonImages(playerNumber);
                 })
             }
         })
     }
 
-    // Function to get pokemonTwo
-    getPokemonTwo = () => {
-        const numGenerator = Math.floor(Math.random() * 151);
-        // API call to the Pokemon Evolution Chain Endpoint
-        axios({
-            url: `https://pokeapi.co/api/v2/evolution-chain/${numGenerator}/`,
+    // Function to get pokemon images
+    getPokemonImages = (playerNumber) => {
+        // Create empty array for Pokemon image promises 
+        const imagePromises =[];
+
+        const pokemonName = this.state[`pokemon${playerNumber}Name`];
+
+        const evolvedPokemonName = this.state[`pokemon${playerNumber}EvolvedName`];
+
+        // Axios promise for getting the image for pokemon
+        const pokemonImagePromise = axios({
+            url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
             responseType: `json`,
             method: `GET`
         })
-        .then((res) => {
-            const evolutionApiArray = res.data.chain.evolves_to;
-            // check to see if there is an evolution array; if no, call the same function again
-            if (evolutionApiArray.length === 0) {
-                this.getPokemonTwo()
-            } else {
-                // if yes, save the pokemon name and evolved pokemon name into variables
-                const pokemonName = res.data.chain.species.name;
-                const evolvedPokemonName = evolutionApiArray[0].species.name;
 
-                // set state for pokemonTwoName and pokemonTwoEvolvedName
-                this.setState({
-                    pokemonTwoName: pokemonName,
-                    pokemonTwoEvolvedName: evolvedPokemonName
-                })
+        setTimeout(imagePromises.push(pokemonImagePromise), 100);
 
-                // Create empty array for Pokemon image promises 
-                const imagePromises =[];
+        // Axios promise for getting the image for the evolved version of pokemon
+        const evolvedPokemonImagePromise = axios({
+            url: `https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`,
+            responseType: `json`,
+            method: `GET`
+        })
 
-                // Axios promise for getting the image for pokemonTwo
-                const pokemonImagePromise = axios({
-                    url: `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-                    responseType: `json`,
-                    method: `GET`
-                })
+        setTimeout(imagePromises.push(evolvedPokemonImagePromise), 100);
 
-                setTimeout(imagePromises.push(pokemonImagePromise), 100);
-
-                // Axios promise for getting the image for the evolved version of pokemonTwo
-                const evolvedPokemonImagePromise = axios({
-                    url: `https://pokeapi.co/api/v2/pokemon/${evolvedPokemonName}`,
-                    responseType: `json`,
-                    method: `GET`
-                })
-
-                setTimeout(imagePromises.push(evolvedPokemonImagePromise), 100);
-
-                // When both Promises are fulfilled, set state for both pokemon two's images
-                Promise.all(imagePromises).then((res) => {
-                    this.setState({
-                        pokemonTwoImg: res[0].data.sprites.front_default,
-                        pokemonTwoEvolvedImg: res[1].data.sprites.front_default
-                    })
-                })
-            }
+        // When both Promises are fulfilled, set state for both pokemon images (regular and evolved)
+        Promise.all(imagePromises).then((res) => {
+            this.setState({
+                [`pokemon${playerNumber}Img`]: res[0].data.sprites.front_default,
+                [`pokemon${playerNumber}EvolvedImg`]: res[1].data.sprites.front_default
+            })
         })
     }
 
@@ -170,13 +119,13 @@ class App extends Component {
                 deckId: res.data.deck_id
             })
             // Based on this deckId, call functions for getting pokemonOne and pokemonTwo's initial two cards
-            setTimeout(this.getPokemonOneInitialCards(), 100);
-            setTimeout(this.getPokemonTwoInitialCards(), 400);
+            setTimeout(this.getInitialCards('One'), 100);
+            setTimeout(this.getInitialCards('Two'), 300);
         })
     }
 
-    // Function for getting pokemonOne's first two cards from the draw card endpoint
-    getPokemonOneInitialCards = () => {
+    // Function for getting first two cards from the draw card endpoint
+    getInitialCards = (playerNumber) => {
         const deckId = this.state.deckId;
         axios({
             url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
@@ -186,11 +135,11 @@ class App extends Component {
         .then ((response) => {
             const cards = response.data.cards;
             // First, create empty array called playerOneCards, which will then be filled with results from the API, and then be set to state for pokemonOneCards
-            const playerOneCards = [];
+            const playerCards = [];
 
             // Loop through the API array result with .forEach, and push the value, image, suit, and code to the empty playerOneCards array
             cards.forEach((card) => {
-                playerOneCards.push({
+                playerCards.push({
                     value: card.value,
                     image: card.image,
                     suit: card.suit,
@@ -200,40 +149,11 @@ class App extends Component {
 
             // Set state so that the previously empty pokemonOneCards array in state is now set with the playerOneCards array, which holds the value, image, suit, and code 
             this.setState({
-                pokemonOneCards: playerOneCards
+                [`pokemon${playerNumber}Cards`]: playerCards
             })
         })
     }
 
-    // Function for getting pokemonTwo's first two cards from the draw card endpoint 
-    getPokemonTwoInitialCards = () => {
-        const deckId = this.state.deckId;
-        axios({
-            url: `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`,
-            responseType: 'json',
-            method: 'GET',
-        })
-        .then ((response) => {
-            const cards = response.data.cards;
-            // First, create empty array called playerTwoCards, which will then be filled with results from the API, and then be set to state for pokemonTwoCards
-            const playerTwoCards = [];
-
-            // Loop through the API array result with .forEach, and push the value, image, suit, and code to the empty playerTwoCards array
-            cards.forEach((card) => {
-                playerTwoCards.push({
-                    value: card.value,
-                    image: card.image,
-                    suit: card.suit,
-                    code: card.code
-                })
-            })
-
-            // Set state so that the previously empty pokemonTwoCards array in state is now set with the playerTwoCards array, which holds the value, image, suit, and code 
-            this.setState({
-                pokemonTwoCards: playerTwoCards
-            })
-        })
-    }
 
     // Function for when Pokemon One clicks "Draw Card"
     drawCardPokemonOne = () => {
@@ -434,59 +354,64 @@ class App extends Component {
             buttonDisabledTwo: false
         })
 
-        
+        document.querySelector('.dynamicP').innerHTML = "Player Two's turn!";
     }
 
     // Function for when Pokemon Two clicks "Stand" button
     standButtonPokemonTwo = () => {
-        // On click of the "Stand Button":
-        // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
-    
         const playerOneScore = this.state.pokemonOneCardsValue;
         const playerTwoScore = this.state.pokemonTwoCardsValue;
 
         if (playerOneScore > playerTwoScore) {
             if (playerOneScore <= 21) {
+                document.querySelector('.dynamicP').innerHTML = "Player One Wins!";
+                document.querySelector('.winnerEvolution').classList.toggle('visible');
                 this.setState({
                     pokemonOneWins: true,
-                    winnerDisabled: false
                 });
             } else if (playerOneScore > 21) {
+                document.querySelector('.dynamicP').innerHTML = "Player Two Wins!";
+                document.querySelector('.winnerEvolution').classList.toggle('visible');
                 this.setState({
                     pokemonTwoWins: true,
-                    winnerDisabled: false
                 });
             }
         } else if (playerTwoScore > playerOneScore) {
             if (playerTwoScore <= 21) {
+                document.querySelector('.dynamicP').innerHTML = "Player Two Wins!";
+                document.querySelector('.winnerEvolution').classList.toggle('visible');
                 this.setState({
                     pokemonTwoWins: true,
-                    winnerDisabled: false
                 });
             } else if (playerTwoScore > 21) {
+                document.querySelector('.dynamicP').innerHTML = "Player One Wins!";
+                document.querySelector('.winnerEvolution').classList.toggle('visible');
                 this.setState({
                     pokemonOneWins: true,
-                    winnerDisabled: false
                 });
             }
         } else if (playerOneScore === playerTwoScore) {
             if ( playerOneScore > 21 && playerTwoScore > 21) {
+                document.querySelector('.dynamicP').innerHTML = "You both bust - no winners!";
+                document.querySelector('.playAgain').classList.toggle('visible');
                 this.setState({
-                    noWinners: true,
-                    winnerDisabled: true
+                    // noWinners: true,
+                    // winnerDisabled: true
                 });
             } else if (playerOneScore <= 21 && playerTwoScore <= 21) {
+                document.querySelector('.dynamicP').innerHTML = "Tie game - no winners!";
+                document.querySelector('.playAgain').classList.toggle('visible');
                 this.setState({
-                    tieGame: true,
-                    winnerDisabled: true
+                    // tieGame: true,
+                    // winnerDisabled: true
                 });
             }
         } 
     }
 
     componentDidMount = () => {
-        this.getPokemonOne();
-        this.getPokemonTwo();
+        this.getPokemon('One');
+        this.getPokemon('Two');
         this.getDeckOfCards();
     }
 
