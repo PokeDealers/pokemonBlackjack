@@ -1,5 +1,7 @@
 import React from 'react'
 import './styles.css';
+import { Link } from 'react-router-dom';
+
 
 const Winner = (props) => {
 
@@ -24,7 +26,7 @@ const Winner = (props) => {
                         : <img src={props.passState.pokemonTwoEvolvedImg} alt=""/>
                     }
                 </div>
-                <a href="/" className="buttonStyle">Play Again</a>
+                <Link to="/" className="buttonStyle">Play Again</Link>
             </div>
         </div>
     )
