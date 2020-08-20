@@ -21,7 +21,9 @@ body {
 h1,
 button,
 .buttonStyle,
-.windowB .gameDetails p:nth-child(2) {
+.windowB .gameDetails p:nth-child(2),
+.windowB a,
+.windowB .dynamicP {
     font-family: 'Carter One', cursive;
 }
 
@@ -31,7 +33,7 @@ button,
 
 .wrapper {
     width: 85%;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -51,17 +53,11 @@ h2 {
 
 button,
 .buttonStyle {
-    color: #142b68;
-    background-color: #ffff00;
-    border-radius: 12px;
-    border: #142b68;
-    font-size: 1.2rem;
-    margin: 20px auto;
-    padding: 5px 10px;
     display: block;
-    box-shadow: 5px 5px 5px #142b68;
 }
 
+button,
+.buttonStyle,
 .windowB a {
     color: #142b68;
     background-color: #ffff00;
@@ -70,16 +66,22 @@ button,
     font-size: 1.2rem;
     margin: 20px auto;
     padding: 5px 10px;
-    display: inline-block;
     box-shadow: 5px 5px 5px #142b68;
 }
 
 button:hover,
 button:focus,
+.windowB a:hover,
+.windowB a:focus,
 .buttonStyle:hover,
 .buttonStyle:focus {
     transform: scale(1.1);
     transition: 0.3s;
+}
+
+.windowB a {
+    display: inline-block;
+    padding: 10px 15px;
 }
 
 /* Home Page Styles  */
@@ -133,57 +135,61 @@ button:focus,
 }
 
 .windowB .notificationsContainer {
-    /* border: double 0.4rem #142b68; */
+    border: double 0.4rem #142b68;
     border-radius: 15px;
     padding: 20px;
     text-align: center;
+    color: #142b68;
+    font-size: 1.5rem;
+}
+
+.windowB .dynamicP {
+    position: relative;
+    top: 10px;
 }
 
 .windowB .gameContainer {
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 0px 0px 0px;
+}
+
+.windowB .pokemonDetails {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .windowB .pokemonOneContainer,
 .windowB .pokemonTwoContainer {
-    display: flex;
     text-transform: capitalize;
-    flex-wrap: wrap;
-    margin: 50px 0;
-}
-
-.windowB .pokemonImgContainer {
-    width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
 }
 
 .windowB .pokemonImgContainer img {
-    width: 295px;
+    width: 150px;
     background-color: #ffff00;
-    margin: 0 auto;
+    margin: 5px auto;
     border-radius: 50%;
 }
 
 .windowB .gameDetails {
     text-align: center;
     background-color: #142b68;
-    padding: 20px 60px;
+    padding: 25px;
     border-radius: 15px;
     color: #ffff00;
-    width: 500px;
+    width: 450px;
     border: double 1rem #edfeff;
     margin: 0 auto;
 }
 
 .windowB .pokemonCards {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .windowB .card {
-    width: 100px;
+    width: 90px;
     margin: 15px;
     box-shadow: 7px 7px 0px #ffff00; 
 }
@@ -192,8 +198,8 @@ button:focus,
     font-size: 1.2rem;
 }
 
-.windowB .gameDetails p:nth-child(2) {
-    padding: 10px 0;
+.windowB .gameDetails p {
+    padding: 7px 0;
     font-size: 1.5rem;
 }
 
