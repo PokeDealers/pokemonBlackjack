@@ -380,20 +380,11 @@ class App extends Component {
             pokemonOneTotal = cardValuesArray.reduce((a, b) => a + b, 0);
         }
 
-        // IS THIS EVEN DOING ANYTHING RIGHT NOW? LOOK INTO THIS!!!! (i'm not yelling i swear)
-        // if (pokemonOneTotal > 21) {
-        //     this.setState({
-        //         buttonDisabledOne: true,
-        //         buttonDisabledTwo: false
-        //     })
-        // }
-
         // Set state for pokemonOneCardsValue to be the total value of their cards
         this.setState({
             pokemonOneCardsValue: pokemonOneTotal
         })
     }
-
 
     // Function for checking the value of Pokemon Two's cards
     checkPokemonTwoScore = () => {
@@ -436,7 +427,6 @@ class App extends Component {
         // On click of the "Stand Button":
         // (1) call the checkPokemonOneScore function, so that we can update state for pokemonOneCardsValue, and store the total value of the cards there
         this.checkPokemonOneScore();
-
         
         // When the stand button is clicked, disable button functionality for player 1 and enable button functionality for player 2
         this.setState({
@@ -451,15 +441,9 @@ class App extends Component {
     standButtonPokemonTwo = () => {
         // On click of the "Stand Button":
         // (1) call the checkPokemonTwoScore function, so that we can update state for pokemonTwoCardsValue, and store the total value of the cards there
-        // this.checkPokemonTwoScore();
     
         const playerOneScore = this.state.pokemonOneCardsValue;
-        console.log('playerOneScore', playerOneScore);
-
         const playerTwoScore = this.state.pokemonTwoCardsValue;
-        console.log('playerTwoScore', playerTwoScore);
-        console.log('state for pokemonTwoCardsValue', this.state.pokemonTwoCardsValue)
-
 
         if (playerOneScore > playerTwoScore) {
             if (playerOneScore <= 21) {
