@@ -235,11 +235,6 @@ class App extends Component {
         })
     }
 
-    // ***********************************
-    //
-    // WHY IS THIS FUNCTION COUNTING CARDS AND LINE 354 - checkPokemonOneScore() IS ALSO COUNTING CARDS... WHY?
-    //
-    // ***********************************
     // Function for when Pokemon One clicks "Draw Card"
     drawCardPokemonOne = () => {
         const deckId = this.state.deckId;
@@ -299,12 +294,6 @@ class App extends Component {
         })    
     }
 
-    // ***********************************
-    //
-    // WHY IS THIS FUNCTION COUNTING CARDS AND LINE 404'ISH - checkPokemonTwoScore() IS ALSO COUNTING CARDS... WHY?
-    //  - We must get rid of BOTH checkpokemonOne and TwoScore() and use the two card calls to get total card count?
-    //
-    // ***********************************
     // Function for when Pokemon Two clicks "Draw Card"
     drawCardPokemonTwo = () => {
         const deckId = this.state.deckId;
@@ -364,21 +353,6 @@ class App extends Component {
         })
     }
 
-    // CARD COUNTING FUNCTION
-    //
-    //
-    // cardCounter = () => {
-
-        
-    // }
-        
-    
-
-    //*************************************
-    //
-    // IS THIS FUNCTION NEEDED? It is doing same thing as drawpokemonOneCard and Two.
-    //  - Same comment applies to checkPokemonTwoScore();
-    //******************************** 
     // Function for checking the value of Pokemon One's cards
     checkPokemonOneScore = () => {
         //Empty array which will be filled with the values of the cards in this.state.pokemonOneCards
@@ -502,11 +476,13 @@ class App extends Component {
         } else if (playerTwoScore > playerOneScore) {
             if (playerTwoScore <= 21) {
                 this.setState({
-                    pokemonTwoWins: true
+                    pokemonTwoWins: true,
+                    winnerDisabled: false
                 });
             } else if (playerTwoScore > 21) {
                 this.setState({
-                    pokemonOneWins: true
+                    pokemonOneWins: true,
+                    winnerDisabled: false
                 });
             }
         } else if (playerOneScore === playerTwoScore) {
