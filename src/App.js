@@ -490,11 +490,13 @@ class App extends Component {
         if (playerOneScore > playerTwoScore) {
             if (playerOneScore <= 21) {
                 this.setState({
-                    pokemonOneWins: true
+                    pokemonOneWins: true,
+                    winnerDisabled: false
                 });
             } else if (playerOneScore > 21) {
                 this.setState({
-                    pokemonTwoWins: true
+                    pokemonTwoWins: true,
+                    winnerDisabled: false
                 });
             }
         } else if (playerTwoScore > playerOneScore) {
