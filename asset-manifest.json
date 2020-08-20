@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/pokemonBlackjack/static/css/main.235090d9.chunk.css",
-    "main.js": "/pokemonBlackjack/static/js/main.aefdcabd.chunk.js",
-    "main.js.map": "/pokemonBlackjack/static/js/main.aefdcabd.chunk.js.map",
+    "main.css": "/pokemonBlackjack/static/css/main.344a3ea9.chunk.css",
+    "main.js": "/pokemonBlackjack/static/js/main.70466b60.chunk.js",
+    "main.js.map": "/pokemonBlackjack/static/js/main.70466b60.chunk.js.map",
     "runtime-main.js": "/pokemonBlackjack/static/js/runtime-main.920793e3.js",
     "runtime-main.js.map": "/pokemonBlackjack/static/js/runtime-main.920793e3.js.map",
-    "static/js/2.28dc0402.chunk.js": "/pokemonBlackjack/static/js/2.28dc0402.chunk.js",
-    "static/js/2.28dc0402.chunk.js.map": "/pokemonBlackjack/static/js/2.28dc0402.chunk.js.map",
+    "static/js/2.d8101f8c.chunk.js": "/pokemonBlackjack/static/js/2.d8101f8c.chunk.js",
+    "static/js/2.d8101f8c.chunk.js.map": "/pokemonBlackjack/static/js/2.d8101f8c.chunk.js.map",
     "index.html": "/pokemonBlackjack/index.html",
-    "precache-manifest.0968cd955d94a19fc8bda06a51bdf6c0.js": "/pokemonBlackjack/precache-manifest.0968cd955d94a19fc8bda06a51bdf6c0.js",
+    "precache-manifest.13f5866a4d4adfc8f61043a3d8ec8d69.js": "/pokemonBlackjack/precache-manifest.13f5866a4d4adfc8f61043a3d8ec8d69.js",
     "service-worker.js": "/pokemonBlackjack/service-worker.js",
-    "static/css/main.235090d9.chunk.css.map": "/pokemonBlackjack/static/css/main.235090d9.chunk.css.map",
-    "static/js/2.28dc0402.chunk.js.LICENSE.txt": "/pokemonBlackjack/static/js/2.28dc0402.chunk.js.LICENSE.txt",
+    "static/css/main.344a3ea9.chunk.css.map": "/pokemonBlackjack/static/css/main.344a3ea9.chunk.css.map",
+    "static/js/2.d8101f8c.chunk.js.LICENSE.txt": "/pokemonBlackjack/static/js/2.d8101f8c.chunk.js.LICENSE.txt",
     "static/media/Pokeball-PNG-Photos.png": "/pokemonBlackjack/static/media/Pokeball-PNG-Photos.8e2ff0b0.png"
   },
   "entrypoints": [
     "static/js/runtime-main.920793e3.js",
-    "static/js/2.28dc0402.chunk.js",
-    "static/css/main.235090d9.chunk.css",
-    "static/js/main.aefdcabd.chunk.js"
+    "static/js/2.d8101f8c.chunk.js",
+    "static/css/main.344a3ea9.chunk.css",
+    "static/js/main.70466b60.chunk.js"
   ]
 }
